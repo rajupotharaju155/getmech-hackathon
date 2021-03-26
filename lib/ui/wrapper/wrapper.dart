@@ -15,7 +15,7 @@ class _WrapperPageState extends State<WrapperPage> {
   }
 
   void _gotoDriverPage(){
-    CommonActions.gotoPage(DriverMainPage(), context);
+    CommonActions.gotoPage(DriverMain(), context);
   }
 
   @override
