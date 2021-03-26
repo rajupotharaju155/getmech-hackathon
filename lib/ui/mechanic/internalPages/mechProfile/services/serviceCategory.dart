@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/internalPages/mechProfile/products/productsList.dart';
+import 'package:getmech/ui/mechanic/internalPages/mechProfile/services/serviceList.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
-class ProductCategory extends StatelessWidget {
+class ServiceCategory extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    List productCategoryList = [
-      "Accessories",
-      "Body Parts",
-      "Electrical Items",
-      "Engine Parts",
-      "Service Parts",
-      "Wheel Parts"
+    List serviceCategoryList = [
+      "General Service",
+      "Body Work",
+      "Electrical Work",
+      "Wash/Polish",
+      "Tyre Service",
+      "Others",
+      "Breakdown Assistance",
+      "Battery",
+
     ];
 
-    void _goToProductListPage(String category){
+    void _goToServiceListPage(String category){
       print(category);
-      CommonActions.gotoPage(ProductsList(category: category,), context);
+      CommonActions.gotoPage(ServicesList(category: category,), context);
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Products")
+        title: Text("Services")
       ),
 
       body: Container(
         padding: EdgeInsets.all(10),
         child: ListView.builder(
-          itemCount: productCategoryList.length,
+          itemCount: serviceCategoryList.length,
           itemBuilder: (context, index){
             return InkWell(
-              onTap: ()=> _goToProductListPage(productCategoryList[index]),
+              onTap: ()=> _goToServiceListPage(serviceCategoryList[index]),
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 5),
                 child: Ink(
@@ -40,7 +44,7 @@ class ProductCategory extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: ListTile(
-                    title: Text(productCategoryList[index],
+                    title: Text(serviceCategoryList[index],
                     style: TextStyle(
                       color: Colors.white
                     ),

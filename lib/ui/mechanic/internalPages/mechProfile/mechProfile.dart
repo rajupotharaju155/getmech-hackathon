@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/internalPages/mechProfile/products/productCategory.dart';
+import 'package:getmech/ui/mechanic/internalPages/mechProfile/services/serviceCategory.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -7,6 +8,10 @@ class MechProfile extends StatelessWidget {
 
   void gotoProductPage(BuildContext context){
     CommonActions.gotoPage(ProductCategory(), context);
+  }
+
+  void gotoServicePage(BuildContext context){
+    CommonActions.gotoPage(ServiceCategory(), context);
   }
 
   @override
@@ -132,13 +137,16 @@ class MechProfile extends StatelessWidget {
              indent: 70,
              thickness: 2,
             ),
-            ListTile(
-              leading: Icon(Icons.miscellaneous_services_outlined, color: Colors.grey[600], size: 35,),
-              title: Text("Service Details",
-              style: TextStyle(
-                color: kDisabledColor,
-                fontSize: 20
-              ),
+            InkWell(
+              onTap: ()=> gotoServicePage(context),
+              child: ListTile(
+                leading: Icon(Icons.miscellaneous_services_outlined, color: Colors.grey[600], size: 35,),
+                title: Text("Service Details",
+                style: TextStyle(
+                  color: kDisabledColor,
+                  fontSize: 20
+                ),
+                ),
               ),
             ),
             Divider(
