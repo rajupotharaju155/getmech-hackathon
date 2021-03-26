@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:getmech/ui/mechanic/internalPages/mechProfile/products.dart';
+import 'package:getmech/ui/mechanic/internalPages/mechProfile/products/productCategory.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
 class MechProfile extends StatelessWidget {
 
   void gotoProductPage(BuildContext context){
-    CommonActions.gotoPage(Products(), context);
+    CommonActions.gotoPage(ProductCategory(), context);
   }
 
   @override

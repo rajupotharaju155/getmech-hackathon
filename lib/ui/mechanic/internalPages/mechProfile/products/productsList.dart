@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/productsModel.dart';
-import 'package:getmech/ui/mechanic/internalPages/mechProfile/addProduct.dart';
+import 'package:getmech/ui/mechanic/internalPages/mechProfile/products/addProduct.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
-class Products extends StatelessWidget {
+class ProductsList extends StatelessWidget {
+  final String category;
+  ProductsList({this.category});
 
 final List<ProductModel> productList = [
   ProductModel(
@@ -72,7 +74,10 @@ final List<ProductModel> productList = [
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Products")
+        title: Text(category,
+        style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: secondaryColor,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: ()=> _addProduct(context),
