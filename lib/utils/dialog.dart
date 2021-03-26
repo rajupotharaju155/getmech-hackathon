@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:women_safety_beproject/ui/constants.dart';
+import 'package:getmech/ui/constants.dart';
 
 class DialogUtil {
   //   void showLoading(
