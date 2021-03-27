@@ -5,40 +5,45 @@ import 'package:getmech/ui/mechanic/internalPages/mechProfile/mechProfile.dart';
 import 'package:getmech/ui/mechanic/internalPages/newOrders.dart';
 import 'package:getmech/utils/constants.dart';
 
-
 class MechanicMainPage extends StatefulWidget {
   @override
   _MechanicMainPageState createState() => _MechanicMainPageState();
 }
 
 class _MechanicMainPageState extends State<MechanicMainPage> {
-    int _page = 0;
+  int _page = 0;
 
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _navChildren = [
-            NewOrders(),
-            MechProfile(),
-            Histpry(),
-            // MechSettings()
-          ];
+      NewOrders(),
+      MechProfile(),
+      MechanicHistory(),
+      // MechSettings()
+    ];
 
     return Scaffold(
       // appBar: AppBar(
       //   title: Text("Mechanic Page")
       // ),
-       body: IndexedStack(
+      body: IndexedStack(
         index: _page,
         children: _navChildren,
       ),
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         items: [
-          Icon(Icons.home_outlined, color: kBackgroundColor,),
+          Icon(
+            Icons.home_outlined,
+            color: kBackgroundColor,
+          ),
           Icon(Icons.person_outline, color: kBackgroundColor),
-          Icon(Icons.settings_outlined,color: kBackgroundColor,),
+          Icon(
+            Icons.settings_outlined,
+            color: kBackgroundColor,
+          ),
         ],
         index: 0,
         height: 60.0,
