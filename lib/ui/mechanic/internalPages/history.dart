@@ -1,164 +1,249 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/models/mechanic/orderMode.dart';
 import 'package:getmech/utils/constants.dart';
-
+import 'package:intl/intl.dart';
 class MechanicHistory extends StatefulWidget {
   @override
   _MechanicHistoryState createState() => _MechanicHistoryState();
 }
 
 class _MechanicHistoryState extends State<MechanicHistory> {
+  final DateFormat formatter = DateFormat('dd-MMM-yyyy');
+  List<OrderModel> orderList = [
+    OrderModel(
+      orderName: "Tyre Puncture",
+      vehicleName: "Toyota Innova",
+      vehicleClassNumber: 4,
+      orderDate:  DateTime.now(),
+      totalCost: 450,
+      wasSuccess: true,
+    ),
+    OrderModel(
+      orderName: "Accessories",
+      vehicleName: "Suzuki DZire",
+      vehicleClassNumber: 4,
+      orderDate:  DateTime.now(),
+      totalCost: 450,
+      wasSuccess: false,
+    ),
+    OrderModel(
+      orderName: "Tyre Puncture",
+      vehicleName: "Splender Plus",
+      vehicleClassNumber: 2,
+      orderDate:  DateTime.now(),
+      totalCost: 450,
+      wasSuccess: true,
+    ),
+    OrderModel(
+      orderName: "Tyre Puncture",
+      vehicleName: "KTM",
+      orderDate:  DateTime.now(),
+      vehicleClassNumber: 2,
+      totalCost: 450,
+      wasSuccess: false,
+    ),
+    OrderModel(
+      orderName: "Tyre Puncture",
+      vehicleName: "Eicher Force",
+      vehicleClassNumber: 6,
+      orderDate:  DateTime.now(),
+      totalCost: 450,
+      wasSuccess: true,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
-          title: Text('Work History'),
+          title: Text('Order History'),
         ),
-        body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        body: ListView.builder(
+          itemCount: orderList.length,
+          itemBuilder: (context, index){
+            
+            final String formattedDate = formatter.format(orderList[index].orderDate);
+            return Container(
+              child: Column(
+                children: [
+                  //pro pic and name
             Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: kDisabledColor))),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //pic
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: kDisabledColor)),
-                          child: Icon(
-                            Icons.receipt_long_outlined,
-                            size: 140.00,
-                          )),
-                    ),
-                    //name
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Service Provided",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                ),
-                              ),
-                              SizedBox(height: 15),
-                              Text(
-                                "Details/Date/Location/",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 25,
-                                    color: textPrimaryColor),
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    child: Text(
-                                      "Status",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                          color: Colors.green[800]),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(
-                                      Icons.arrow_right,
-                                      color: Colors.green[800],
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
-                    )
-                  ],
-                )),
-            SizedBox(height: 6),
-            Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: kDisabledColor))),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //pic
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: kDisabledColor)),
-                        child: Icon(
-                          Icons.receipt_long_outlined,
-                          size: 140.00,
-                        ),
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: kDisabledColor
+                  )
+                )
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //pic
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: kDisabledColor)
                       ),
+                      child: FlutterLogo(
+                        size: 100,
+                      )
                     ),
-                    //name
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+                  //name
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Service Provided",
+                              Text(orderList[index].orderName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+                                decoration: BoxDecoration(
+                                  color: Colors.purple,
+                                  borderRadius:BorderRadius.circular(10)
+                                ),
+                                child: Text(orderList[index].vehicleClassNumber.toString() + " W",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 30,
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                ),
                                 ),
                               ),
-                              SizedBox(height: 15),
-                              Text(
-                                "Details/Date/Location/",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 25,
-                                    color: textPrimaryColor),
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    child: Text(
-                                      "Status",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                          color: Colors.green[800]),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(
-                                      Icons.arrow_right,
-                                      color: Colors.green[800],
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                ],
-                              )
                             ],
-                          )),
-                    )
-                  ],
-                )),
-          ]),
-        ));
+                          ),
+                          SizedBox(height: 1),
+                          Text(orderList[index].vehicleName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 20,
+                          ),
+                          ),
+                          Text(formattedDate,
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15,
+                            color: Colors.grey[600]
+                          ),
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                child: Text(orderList[index].wasSuccess? "Success" : "Cancelled",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: orderList[index].wasSuccess?  Colors.green : Colors.red
+                                ),
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_ios_rounded)
+                            ],
+                          )
+                        ],
+                      )
+                    ),
+                  )
+                ],
+              )
+            ),
+                ],
+              )
+            );  
+          })
+        
+        
+        
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.start, 
+        //   children: [
+        //   Container(
+        //       padding: EdgeInsets.all(10),
+        //       decoration: BoxDecoration(
+        //           border: Border(bottom: BorderSide(color: kDisabledColor))),
+        //       child: Row(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           //pic
+        //           Expanded(
+        //             flex: 1,
+        //             child: Container(
+        //                 decoration: BoxDecoration(
+        //                     border: Border.all(color: kDisabledColor)),
+        //                 child: Icon(
+        //                   Icons.receipt_long_outlined,
+        //                   size: 140.00,
+        //                 )),
+        //           ),
+        //           //name
+        //           Expanded(
+        //             flex: 2,
+        //             child: Container(
+        //                 padding: EdgeInsets.all(10.0),
+        //                 child: Column(
+        //                   crossAxisAlignment: CrossAxisAlignment.start,
+        //                   mainAxisAlignment: MainAxisAlignment.start,
+        //                   children: [
+        //                     Text(
+        //                       "Service Provided",
+        //                       style: TextStyle(
+        //                         fontWeight: FontWeight.bold,
+        //                         fontSize: 30,
+        //                       ),
+        //                     ),
+        //                     SizedBox(height: 15),
+        //                     Text(
+        //                       "Details/Date/Location/",
+        //                       style: TextStyle(
+        //                           fontWeight: FontWeight.normal,
+        //                           fontSize: 25,
+        //                           color: textPrimaryColor),
+        //                     ),
+        //                     SizedBox(height: 10),
+        //                     Row(
+        //                       mainAxisAlignment:
+        //                           MainAxisAlignment.spaceBetween,
+        //                       children: [
+        //                         GestureDetector(
+        //                           child: Text(
+        //                             "Status",
+        //                             style: TextStyle(
+        //                                 fontWeight: FontWeight.bold,
+        //                                 fontSize: 25,
+        //                                 color: Colors.green[800]),
+        //                           ),
+        //                         ),
+        //                         GestureDetector(
+        //                           child: Icon(
+        //                             Icons.arrow_right,
+        //                             color: Colors.green[800],
+        //                             size: 50.0,
+        //                           ),
+        //                         ),
+        //                       ],
+        //                     )
+        //                   ],
+        //                 )),
+        //           )
+        //         ],
+        //       )),
+        // ])
+        );
   }
 }

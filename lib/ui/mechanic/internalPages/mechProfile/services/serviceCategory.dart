@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getmech/ui/mechanic/internalPages/mechProfile/products/productsList.dart';
 import 'package:getmech/ui/mechanic/internalPages/mechProfile/services/serviceList.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
