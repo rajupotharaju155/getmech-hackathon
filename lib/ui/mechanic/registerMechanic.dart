@@ -7,13 +7,13 @@ class RegisterMechanic extends StatefulWidget {
 }
 
 class _RegisterMechanicState extends State<RegisterMechanic> {
-  TextEditingController GaragenameController = TextEditingController();
-  TextEditingController OwnernameController = TextEditingController();
+  TextEditingController garagenameController = TextEditingController();
+  TextEditingController ownernameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController AddressController = TextEditingController();
-  TextEditingController GSTNumberController = TextEditingController();
-  TextEditingController VehicleTypeController = TextEditingController();
-  TextEditingController SparePartsController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController gstNumberController = TextEditingController();
+  TextEditingController vehicleTypeController = TextEditingController();
+  TextEditingController sparePartsController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -41,7 +41,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: GaragenameController,
+                    controller: garagenameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Garage Name',
@@ -51,7 +51,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: OwnernameController,
+                    controller: ownernameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Owner Name',
@@ -71,7 +71,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: AddressController,
+                    controller: addressController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Garage Address',
@@ -81,7 +81,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: GSTNumberController,
+                    controller: gstNumberController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'GST Number/PAN card Number',
@@ -144,13 +144,8 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                             style: TextStyle(fontSize: 15),
                           ),
                           onPressed: () {
-                            print(nameController.text);
+                            print(garagenameController.text);
                             print(passwordController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                            );
                           },
                         )),
                   ],
