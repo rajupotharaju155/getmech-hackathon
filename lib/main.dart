@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:getmech/ui/driver/driverMain.dart';
 import 'package:getmech/ui/wrapper/wrapper.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -21,7 +23,29 @@ class MyApp extends StatelessWidget {
         primarySwatch: customAppPrimary,
         scaffoldBackgroundColor: kBackgroundColor,
       ),
-      home: WrapperPage(),
+      home: BaseWrapper(),
     );
+  }
+}
+
+
+class BaseWrapper extends StatefulWidget {
+  @override
+  _BaseWrapperState createState() => _BaseWrapperState();
+}
+
+class _BaseWrapperState extends State<BaseWrapper> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot)  {
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return CircularProgressIndicator();
+          else if (snapshot.hasData){
+            return DriverMain();
+          }
+          else return WrapperPage();
+        });
   }
 }

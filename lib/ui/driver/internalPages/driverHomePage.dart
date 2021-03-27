@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/services/authService.dart';
 import 'package:getmech/ui/driver/internalPages/garageDetails.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -8,11 +9,26 @@ class DriverHomePage extends StatefulWidget {
 }
 
 class _DriverHomePageState extends State<DriverHomePage> {
+
+  void _logout()async{
+   bool result = await AuthService().logOut();
+   if(result){
+    //  Navigator.of(context).pop();
+    print("Suvvesfully loged out");
+   }else{
+     print("Problem in logginf out");
+   }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      appBar: AppBar(title: Text("Driver Page")),
+      appBar: AppBar(title: Text("Driver Page"),
+      actions: [
+        ElevatedButton(onPressed: _logout, child: Text("Logout"))
+      ],
+      ),
       body: ListView(
         children: [
           GestureDetector(
@@ -43,32 +59,34 @@ class _DriverHomePageState extends State<DriverHomePage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Honda sevice center',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Honda sevice center',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text(
-                            'Adding some random street address here!',
-                            style: TextStyle(fontSize: 14),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              'Adding some random street address here!',
+                              style: TextStyle(fontSize: 14),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-                          child: Text('2.0 KM away from you'),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text('2.0 KM away from you'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

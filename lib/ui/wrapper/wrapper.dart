@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/driver/loginRegWrapper/loginRegWrapperDriver.dart';
-import 'package:getmech/ui/mechanic/loginRegWrapper/loginRegWrapperMech.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -11,16 +9,9 @@ class WrapperPage extends StatefulWidget {
 }
 
 class _WrapperPageState extends State<WrapperPage> {
-  void _gotoMechanicPage() async {
-    // CommonActions.gotoPage(MechanicMainPage(), context);
-    try {
-      await FirebaseFirestore.instance.collection('users')
-        .add({'hello': 124});
-    } catch (e) {
-      print("Exception: "+ e.toString());
-    }
-    CommonActions.gotoPage(LoginRegWrapperMech(), context);
-  }
+  // void _gotoMechanicPage() async {
+  //   CommonActions.gotoPage(LoginRegWrapperMech(), context);
+  // }
 
   void _gotoDriverPage() {
     // CommonActions.gotoPage(DriverMain(), context);
@@ -131,21 +122,21 @@ class _WrapperPageState extends State<WrapperPage> {
                                   child: Text("Lets Start")
                                 )),
                             ),
-                            GestureDetector(
-                              onTap: _gotoMechanicPage,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal:10, vertical: 10),
-                                alignment: Alignment.centerRight,
-                                child: Text("Continue as Garage insted?",
-                                style: TextStyle(
-                                  backgroundColor: Colors.black45,
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold
-                                 ),
-                                ),
-                              ),
-                            )
+                            // GestureDetector(
+                            //   onTap: _gotoMechanicPage,
+                            //   child: Container(
+                            //     margin: EdgeInsets.symmetric(horizontal:10, vertical: 10),
+                            //     alignment: Alignment.centerRight,
+                            //     child: Text("Continue as Garage insted?",
+                            //     style: TextStyle(
+                            //       backgroundColor: Colors.black45,
+                            //       color: Colors.white,
+                            //       fontSize: 10,
+                            //       fontWeight: FontWeight.bold
+                            //      ),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
