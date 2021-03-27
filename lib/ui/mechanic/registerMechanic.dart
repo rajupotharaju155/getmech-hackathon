@@ -11,6 +11,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController gstNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +65,21 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10),
-                child: Radiobutton(),
+                child: ViewWidget(),
               ),
               Container(
                 padding: EdgeInsets.all(10),
+                child: Text(
+                  "Which all Vehicles you can repair  ?",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: textPrimaryColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              Container(
+                child: CheckBox(),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -96,7 +107,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                           style: TextStyle(fontSize: 15),
                         ),
                         onPressed: () {
-                          print(garagenameController.text);
+                          print(phoneNumberController.text);
                           print(passwordController.text);
                         },
                       )),
@@ -107,34 +118,114 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
   }
 }
 
-class Radiobutton extends StatefulWidget {
+class ViewWidget extends StatefulWidget {
   @override
-  RadioButtonWidget createState() => RadioButtonWidget();
+  ViewWidgetState createState() => ViewWidgetState();
 }
 
-class RadioButtonWidget extends State {
-  String radioItem = '';
+class ViewWidgetState extends State {
+  bool viewVisible = false;
+
+  get gstNumberController => null;
+
+  void showWidget() {
+    setState(() {
+      viewVisible = true;
+    });
+  }
+
+  void hideWidget() {
+    setState(() {
+      viewVisible = false;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        RadioListTile(
-          groupValue: radioItem,
-          title: Text('YES'),
-          value: 'yes',
-          onChanged: (val) {
+        ElevatedButton(
+          child: Text('YES'),
+          onPressed: showWidget,
+        ),
+        ElevatedButton(
+          child: Text('NO'),
+          onPressed: hideWidget,
+        ),
+        Visibility(
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          visible: viewVisible,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              controller: gstNumberController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'GST Number',
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CheckBox extends StatefulWidget {
+  @override
+  CheckBoxWidget createState() => CheckBoxWidget();
+}
+
+class CheckBoxWidget extends State {
+  bool valuefirst = false;
+  bool valuesecond = false;
+  bool valuethird = false;
+  bool valuefourth = false;
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        CheckboxListTile(
+          controlAffinity: ListTileControlAffinity.trailing,
+          secondary: const Icon(Icons.bike_scooter),
+          title: const Text('TWO WHEELER'),
+          value: this.valuefirst,
+          onChanged: (bool value) {
             setState(() {
-              radioItem = val;
+              this.valuefirst = value;
             });
           },
         ),
-        RadioListTile(
-          groupValue: radioItem,
-          title: Text('NO'),
-          value: 'no',
-          onChanged: (val) {
+        CheckboxListTile(
+          secondary: const Icon(Icons.car_repair),
+          title: const Text('FOUR WHEELER'),
+          value: this.valuesecond,
+          onChanged: (bool value) {
             setState(() {
-              radioItem = val;
+              this.valuesecond = value;
+            });
+          },
+        ),
+        CheckboxListTile(
+          controlAffinity: ListTileControlAffinity.trailing,
+          secondary: const Icon(Icons.bus_alert),
+          title: const Text('BUS'),
+          value: this.valuethird,
+          onChanged: (bool value) {
+            setState(() {
+              this.valuethird = value;
+            });
+          },
+        ),
+        CheckboxListTile(
+          controlAffinity: ListTileControlAffinity.trailing,
+          secondary: const Icon(Icons.bus_alert),
+          title: const Text('TRUCK'),
+          value: this.valuefourth,
+          onChanged: (bool value) {
+            setState(() {
+              this.valuefourth = value;
             });
           },
         ),
