@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/registerProduct.dart';
 import 'package:getmech/utils/constants.dart';
 
+import 'internalPages/mechProfile/mechProfile.dart';
+
 class RegisterService extends StatefulWidget {
   @override
   _RegisterServiceState createState() => _RegisterServiceState();
@@ -38,6 +40,7 @@ class _RegisterServiceState extends State<RegisterService> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Service Charges',
+                    prefix: Text("Rs. "),
                   ),
                 ),
               ),
@@ -58,16 +61,92 @@ class _RegisterServiceState extends State<RegisterService> {
                         onPressed: () {
                           print(servicenameController.text);
                           print(chargesController.text);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterProduct()),
-                          );
                         },
                       )),
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
-              ))
+              )),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "Do you Sell Spare Products ?",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: textPrimaryColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              Container(
+                child: ViewWidget(),
+              ),
             ])));
+  }
+}
+
+class ViewWidget extends StatefulWidget {
+  @override
+  ViewWidgetState createState() => ViewWidgetState();
+}
+
+class ViewWidgetState extends State {
+  bool viewVisible = false;
+
+  get gstNumberController => null;
+
+  void showWidget() {
+    setState(() {
+      viewVisible = true;
+    });
+  }
+
+  void hideWidget() {
+    setState(() {
+      viewVisible = false;
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ElevatedButton(
+          child: Text('YES'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RegisterProduct()),
+            );
+          },
+        ),
+        ElevatedButton(
+          child: Text('NO'),
+          onPressed: showWidget,
+        ),
+        Visibility(
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          visible: viewVisible,
+          child: Container(
+              padding: EdgeInsets.all(10),
+              height: 65,
+              // ignore: deprecated_member_use
+              child: RaisedButton(
+                textColor: Colors.white,
+                color: primaryColor,
+                child: Text(
+                  'Complete Registration',
+                  style: TextStyle(fontSize: 15),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MechProfile()),
+                  );
+                },
+              )),
+        ),
+      ],
+    );
   }
 }

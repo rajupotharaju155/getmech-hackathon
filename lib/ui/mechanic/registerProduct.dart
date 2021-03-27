@@ -37,7 +37,8 @@ class _RegisterProductState extends State<RegisterProduct> {
                   controller: chargesController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Product Price',
+                    prefix: Text("Rs. "),
+                    labelText: "Unit Price",
                   ),
                 ),
               ),
