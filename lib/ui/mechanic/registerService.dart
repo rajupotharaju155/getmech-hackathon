@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/ui/mechanic/mechanicMain.dart';
 import 'package:getmech/ui/mechanic/registerProduct.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -146,7 +147,7 @@ class ViewWidgetState extends State {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MechProfile()),
+                    MaterialPageRoute(builder: (context) => MechanicMainPage()),
                   );
                 },
               )),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/ui/mechanic/mechanicMain.dart';
 import 'package:getmech/utils/constants.dart';
 import 'internalPages/mechProfile/mechProfile.dart';
 
@@ -82,7 +83,7 @@ class _RegisterProductState extends State<RegisterProduct> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MechProfile()),
+                                builder: (context) => MechanicMainPage()),
                           );
                         },
                       )),
@@ -107,7 +108,7 @@ class _RegisterProductState extends State<RegisterProduct> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MechProfile()),
+                                builder: (context) => MechanicMainPage()),
                           );
                         },
                       )),
