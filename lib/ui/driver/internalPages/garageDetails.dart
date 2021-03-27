@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/productsModel.dart';
 import 'package:getmech/models/mechanic/serviceModel.dart';
+import 'package:getmech/utils/constants.dart';
 
 class GarageDetails extends StatefulWidget {
   @override
@@ -124,7 +126,7 @@ class _GarageDetailsState extends State<GarageDetails>
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Address to the shop is writtern here blah blah blah',
+                                  'Address to the shop is written here blah blah blah',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal),
@@ -134,6 +136,41 @@ class _GarageDetailsState extends State<GarageDetails>
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.pin_drop,
+                                  color: secondaryColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 15,),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.call,
+                                  color: secondaryColor,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],
