@@ -8,8 +8,8 @@ class RegisterProduct extends StatefulWidget {
 }
 
 class _RegisterProductState extends State<RegisterProduct> {
-  TextEditingController servicenameController = TextEditingController();
-  TextEditingController chargesController = TextEditingController();
+  TextEditingController productnameController = TextEditingController();
+  TextEditingController costController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class _RegisterProductState extends State<RegisterProduct> {
           title: Text('Add Product'),
         ),
         body: Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(50),
             child: ListView(children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  controller: servicenameController,
+                  controller: productnameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Product Name',
@@ -34,7 +34,7 @@ class _RegisterProductState extends State<RegisterProduct> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  controller: chargesController,
+                  controller: costController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     prefix: Text("Rs. "),
@@ -53,12 +53,32 @@ class _RegisterProductState extends State<RegisterProduct> {
                         textColor: Colors.white,
                         color: primaryColor,
                         child: Text(
-                          'Complete Registration',
+                          'Add Products',
                           style: TextStyle(fontSize: 15),
                         ),
                         onPressed: () {
-                          print(servicenameController.text);
-                          print(chargesController.text);
+                          print(productnameController.text);
+                          print(costController.text);
+                        },
+                      )),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              )),
+              Container(
+                  child: Row(
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.all(10),
+                      height: 65,
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        textColor: Colors.white,
+                        color: primaryColor,
+                        child: Text(
+                          'Register Here',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -68,7 +88,32 @@ class _RegisterProductState extends State<RegisterProduct> {
                       )),
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
-              ))
+              )),
+              Container(
+                  child: Row(
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.all(10),
+                      height: 65,
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        textColor: Colors.white,
+                        color: primaryColor,
+                        child: Text(
+                          'Skip',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MechProfile()),
+                          );
+                        },
+                      )),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              )),
             ])));
   }
 }

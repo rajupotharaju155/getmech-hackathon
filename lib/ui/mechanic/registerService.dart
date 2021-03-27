@@ -21,7 +21,7 @@ class _RegisterServiceState extends State<RegisterService> {
           title: Text('Add Service'),
         ),
         body: Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(50),
             child: ListView(children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
@@ -67,7 +67,7 @@ class _RegisterServiceState extends State<RegisterService> {
                 mainAxisAlignment: MainAxisAlignment.center,
               )),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(30),
                 child: Text(
                   "Do you Sell Spare Products ?",
                   style: TextStyle(
@@ -135,7 +135,7 @@ class ViewWidgetState extends State {
                 textColor: Colors.white,
                 color: primaryColor,
                 child: Text(
-                  'Complete Registration',
+                  'Register Here',
                   style: TextStyle(fontSize: 15),
                 ),
                 onPressed: () {
