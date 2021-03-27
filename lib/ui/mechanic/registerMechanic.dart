@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/ui/mechanic/registerService.dart';
 import 'package:getmech/utils/constants.dart';
 
 class RegisterMechanic extends StatefulWidget {
@@ -103,12 +104,17 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                         textColor: Colors.white,
                         color: primaryColor,
                         child: Text(
-                          'REGISTER',
+                          'Go to Next Page',
                           style: TextStyle(fontSize: 15),
                         ),
                         onPressed: () {
                           print(phoneNumberController.text);
                           print(passwordController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterService()),
+                          );
                         },
                       )),
                 ],
