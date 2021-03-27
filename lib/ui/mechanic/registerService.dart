@@ -109,18 +109,23 @@ class ViewWidgetState extends State {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ElevatedButton(
-          child: Text('YES'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RegisterProduct()),
-            );
-          },
-        ),
-        ElevatedButton(
-          child: Text('NO'),
-          onPressed: showWidget,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              child: Text('YES'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterProduct()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('NO'),
+              onPressed: showWidget,
+            ),
+          ],
         ),
         Visibility(
           maintainSize: true,

@@ -149,13 +149,18 @@ class ViewWidgetState extends State {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ElevatedButton(
-          child: Text('YES'),
-          onPressed: showWidget,
-        ),
-        ElevatedButton(
-          child: Text('NO'),
-          onPressed: hideWidget,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              child: Text('YES'),
+              onPressed: showWidget,
+            ),
+            ElevatedButton(
+              child: Text('NO'),
+              onPressed: hideWidget,
+            ),
+          ],
         ),
         Visibility(
           maintainSize: true,
@@ -168,7 +173,7 @@ class ViewWidgetState extends State {
               controller: gstNumberController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'GST Number',
+                labelText: 'Enter your GST Number',
               ),
             ),
           ),
