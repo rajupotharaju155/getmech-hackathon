@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/driver/driverMain.dart';
 import 'package:getmech/ui/mechanic/mechanicMain.dart';
+import 'package:getmech/ui/mechanic/registerMechanic.dart';
 import 'package:getmech/utils/commonActions.dart';
 
 class WrapperPage extends StatefulWidget {
@@ -31,6 +32,16 @@ class _WrapperPageState extends State<WrapperPage> {
           Container(
             child: ElevatedButton(
                 onPressed: _gotoDriverPage, child: Text("I am Driver")),
+          ),
+          Container(
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterMechanic()),
+                  );
+                },
+                child: Text("Mechanic Register")),
           ),
         ],
       )),
