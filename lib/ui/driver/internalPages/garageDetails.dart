@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/models/mechanic/productsModel.dart';
+import 'package:getmech/models/mechanic/serviceModel.dart';
 
 class GarageDetails extends StatefulWidget {
   @override
@@ -7,7 +9,6 @@ class GarageDetails extends StatefulWidget {
 
 class _GarageDetailsState extends State<GarageDetails>
     with SingleTickerProviderStateMixin {
-
   TabController _controller;
 
   @override
@@ -15,6 +16,56 @@ class _GarageDetailsState extends State<GarageDetails>
     super.initState();
     _controller = new TabController(length: 2, vsync: this);
   }
+
+  List serviceCategoryList = [
+    "General Service",
+    "Body Work",
+    "Electrical Work",
+    "Wash/Polish",
+    "Tyre Service",
+    "Others",
+    "Breakdown Assistance",
+    "Battery",
+  ];
+
+  List productCategoryList = [
+    "Accessories",
+    "Body Parts",
+    "Electrical Items",
+    "Engine Parts",
+    "Service Parts",
+    "Wheel Parts"
+  ];
+
+  final List<ProductModel> productList = [
+    ProductModel(
+        productName: "Front Mud Guard", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Back Mud Guard", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Bike Engine", productPrice: 450, quantity: 1),
+    ProductModel(
+        productName: "Bike Chain Cover", productPrice: 450, quantity: 1),
+    ProductModel(
+        productName: "Front Head Light", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Tail Light", productPrice: 450, quantity: 1),
+    ProductModel(
+        productName: "Front Fork Main Tube", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Side Stand", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Leg Guard", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Engine Guard", productPrice: 450, quantity: 1),
+    ProductModel(productName: "Visor", productPrice: 450, quantity: 1),
+  ];
+
+  final List<ServiceModel> serviceList = [
+    ServiceModel(
+        serviceName: "Front Mud Guard", servicePrice: 450, quantity: 1),
+    ServiceModel(serviceName: "Back Mud Guard", servicePrice: 450, quantity: 1),
+    ServiceModel(serviceName: "Bike Engine", servicePrice: 450, quantity: 1),
+    ServiceModel(
+        serviceName: "Bike Chain Cover", servicePrice: 450, quantity: 1),
+    ServiceModel(
+        serviceName: "Front Head Light", servicePrice: 450, quantity: 1),
+    ServiceModel(serviceName: "Tail Light", servicePrice: 450, quantity: 1),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +124,7 @@ class _GarageDetailsState extends State<GarageDetails>
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Address to the shop is writter here blah blah blah',
+                                  'Address to the shop is writtern here blah blah blah',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal),
@@ -96,10 +147,10 @@ class _GarageDetailsState extends State<GarageDetails>
             labelColor: Colors.grey,
             tabs: <Widget>[
               Tab(
-                text: 'Products',
+                text: 'Services',
               ),
               Tab(
-                text: 'Services',
+                text: 'Products',
               )
             ],
           ),
@@ -110,16 +161,12 @@ class _GarageDetailsState extends State<GarageDetails>
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Expanded(
-                      child: Text('Services')
-                    ),
+                    Expanded(child: _servicesProvided()),
                   ],
                 ),
                 Column(
                   children: <Widget>[
-                    Expanded(
-                      child: Text('Products')
-                    ),
+                    Expanded(child: _productsProvided()),
                   ],
                 )
               ],
@@ -127,6 +174,56 @@ class _GarageDetailsState extends State<GarageDetails>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _servicesProvided() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: serviceCategoryList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ExpansionTile(
+          title: Text(serviceCategoryList[index]),
+          children: [
+            ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: serviceList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(serviceList[index].serviceName),
+                    trailing: Text(
+                        "Rs." + serviceList[index].servicePrice.toString()),
+                  );
+                })
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _productsProvided() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: productCategoryList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ExpansionTile(
+          title: Text(productCategoryList[index]),
+          children: [
+            ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: productList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(productList[index].productName),
+                    trailing: Text(
+                        "Rs." + productList[index].productPrice.toString()),
+                  );
+                }),
+          ],
+        );
+      },
     );
   }
 }
