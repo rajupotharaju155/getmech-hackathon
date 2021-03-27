@@ -8,7 +8,7 @@ class ServicesList extends StatelessWidget {
   final String category;
   ServicesList({this.category});
 
-final List<ServiceModel> productList = [
+final List<ServiceModel> serviceList = [
   ServiceModel(
     serviceName: "Front Mud Guard",
     servicePrice: 450,
@@ -56,83 +56,70 @@ final List<ServiceModel> productList = [
         backgroundColor: secondaryColor,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: secondaryColor,
         onPressed: ()=> _addService(context),
         tooltip: "Add Product",
         child: Center(
-          child: Icon(Icons.add, color: secondaryColor, size: 30,),
+          child: Icon(Icons.add, color: Colors.white, size: 30,),
         ),
       ),
       body: ListView.builder(
-        itemCount: productList.length,
+        itemCount: serviceList.length,
         itemBuilder: (BuildContext context, int index){
           return Container(
-            height: 100,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Colors.grey[100],
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.grey[300])
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(productList[index].serviceName,
+            child: ExpansionTile(
+              title: Text(serviceList[index].serviceName,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold
                         ),
                         ),
-                        Text("Rs."+ productList[index].servicePrice.toString(),
+              trailing:  Text("Rs."+ serviceList[index].servicePrice.toString(),
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: secondaryColor
                         ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 0.3,
-                  color: secondaryColor,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
+              children: [
+                  Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Icon(Icons.delete, color: Colors.red[300], size: 25,),
-                              Text("Delete", style: TextStyle(fontWeight: FontWeight.normal),)
-                            ],
-                          ),
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.blue[600],
+                              onPrimary: Colors.white
+                            ),
+                            onPressed: (){}, 
+                            icon:  Icon(Icons.edit, size: 25,),
+                            label: Text("Edit", style: TextStyle(fontWeight: FontWeight.normal))
+                          ,),
                         ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Icon(Icons.edit, color: Colors.purple[200], size: 25,),
-                              Text("Edit", style: TextStyle(fontWeight: FontWeight.normal),)
-                            ],
-                          ),
-                        )
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red[600],
+                              onPrimary: Colors.white
+                            ),
+                            onPressed: (){}, 
+                            icon:  Icon(Icons.delete, size: 25,),
+                            label: Text("Delete", style: TextStyle(fontWeight: FontWeight.normal))
+                          ,),
+                        ),
                       ],
                     ),
-                  ),
-                )
-              ]
-              
-            ),
+                  )
+              ],   
+            )
           );
         }),
     );

@@ -9,7 +9,7 @@ class DetailedOrder extends StatelessWidget {
   final OrderRequestModel orderRequestModel;
 
    DetailedOrder({this.orderRequestModel});
-  DateFormat formatter = DateFormat('dd-MMM-yyyy hh:mm:a');
+  final DateFormat formatter = DateFormat('dd-MMM-yyyy hh:mm:a');
   void _call(String number){
     print(number);
   }
