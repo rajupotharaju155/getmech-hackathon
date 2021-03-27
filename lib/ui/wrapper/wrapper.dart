@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getmech/ui/driver/driverMain.dart';
-import 'package:getmech/ui/mechanic/mechanicMain.dart';
-import 'package:getmech/ui/mechanic/register/registerMechanic.dart';
+import 'package:getmech/ui/driver/loginRegWrapper/loginRegWrapperDriver.dart';
+import 'package:getmech/ui/mechanic/loginRegWrapper/loginRegWrapperMech.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 
@@ -12,11 +11,13 @@ class WrapperPage extends StatefulWidget {
 
 class _WrapperPageState extends State<WrapperPage> {
   void _gotoMechanicPage() {
-    CommonActions.gotoPage(MechanicMainPage(), context);
+    // CommonActions.gotoPage(MechanicMainPage(), context);
+    CommonActions.gotoPage(LoginRegWrapperMech(), context);
   }
 
   void _gotoDriverPage() {
-    CommonActions.gotoPage(DriverMain(), context);
+    // CommonActions.gotoPage(DriverMain(), context);
+    CommonActions.gotoPage(LoginRegWrapperDriver(), context);
   }
 
   @override
