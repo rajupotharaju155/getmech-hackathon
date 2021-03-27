@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:slider_button/slider_button.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/orderModel.dart';
@@ -7,8 +8,8 @@ import 'package:getmech/utils/constants.dart';
 class DetailedOrder extends StatelessWidget {
   final OrderRequestModel orderRequestModel;
 
-  const DetailedOrder({Key key, this.orderRequestModel}) : super(key: key);
-
+   DetailedOrder({this.orderRequestModel});
+  DateFormat formatter = DateFormat('dd-MMM-yyyy hh:mm:a');
   void _call(String number){
     print(number);
   }
@@ -19,8 +20,13 @@ class DetailedOrder extends StatelessWidget {
   void _cancelOrder(){
     print("Cancel");
   }
+
+  void _goToVerifyPin(){
+    print("Veryfing PIN");
+  }
   @override
   Widget build(BuildContext context) {
+    final String formattedDate = orderRequestModel.scheduledDate != null?  formatter.format(orderRequestModel.scheduledDate): "";
     return Scaffold(
       appBar: AppBar(
         title: Text(orderRequestModel.orderName),
@@ -78,6 +84,38 @@ class DetailedOrder extends StatelessWidget {
                 )
                
               ],
+            ),
+          ),
+          
+          //urgent or scheduled
+          Card(
+            shadowColor: Colors.grey[300],
+            elevation: 2,
+            color: Colors.grey[50],
+            child: Container(
+              
+              decoration: BoxDecoration(
+                color: orderRequestModel.isUrgent? primaryLightColor.withOpacity(0.4) : Colors.green[200],
+                border: Border.all(color: primaryColor),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.all(10),
+              child: orderRequestModel.isUrgent?
+                Text("This is an urgent order!",
+                style: TextStyle(
+                  fontSize: 20
+                ),
+                ):
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("This is scheduled order",
+                    style: TextStyle(
+                      fontSize: 20
+                    ),),
+                    Text(formattedDate.toString())
+                  ],
+                )
             ),
           ),
           //vehicle details card
@@ -153,8 +191,6 @@ class DetailedOrder extends StatelessWidget {
             ),
           ),
 
-          
-
            //Complaint details card
           Card(
             shadowColor: Colors.grey[300],
@@ -225,6 +261,7 @@ class DetailedOrder extends StatelessWidget {
 
             ),
           ),
+          //total cost
           Card(
             shadowColor: Colors.grey[300],
             elevation: 2,
@@ -243,19 +280,43 @@ class DetailedOrder extends StatelessWidget {
                 ),
               )
             ),
+          ),
+          //payment method
+          Card(
+            shadowColor: Colors.grey[300],
+            elevation: 2,
+            color: Colors.grey[50],
+            child: Container(
+              child: ListTile(
+                title: Text("Payment Method",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+                ),
+                trailing: Text(
+                  orderRequestModel.paymentIsOnline? "Online": "Cash",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+                ),
+              )
+            ),
           )
+
         ],
       ),
       bottomNavigationBar: Container(
-        height: 120,
+        height: 110,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 50,
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              margin: EdgeInsets.symmetric(horizontal: 5),
               alignment:  Alignment.topCenter,
-              child: SliderButton(
-                // height: 40,
+              child: 
+              orderRequestModel.requestStatus == 'pending'?
+              SliderButton(
                 buttonSize: 40,
                 height: 50,
                   action: acceptOrder,
@@ -283,7 +344,28 @@ class DetailedOrder extends StatelessWidget {
                   backgroundColor:  Colors.green[800],
                   highlightedColor:  Colors.green ,
                   baseColor: Colors.white ,
+                ):
+              
+              //ask for Verification Pin
+              Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              decoration: BoxDecoration(
+                color: Colors.green[700],
+                // border: Border.all(color: Colors.red[900]),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: TextButton(
+                onPressed: _goToVerifyPin,
+                child: Center(
+                  child: Text("Enter Verification Pin".toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                  ),
                 ),
+              ),
+            )
             ),
             Container(
               height: 50,

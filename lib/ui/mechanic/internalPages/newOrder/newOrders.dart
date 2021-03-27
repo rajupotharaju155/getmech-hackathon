@@ -22,6 +22,7 @@ class NewOrders extends StatelessWidget {
       vehicleColor: "red",
       registrationNumber: "MH 02 AX 1198",
       totalCost: 4500,
+      paymentIsOnline: true,
       particularList: [
         Particulars(
           particularName: "WindShield",
@@ -77,6 +78,7 @@ class NewOrders extends StatelessWidget {
       orderName: "Wind Shield Damage",
       requestDate: DateTime.now(),
       isUrgent: false,
+      scheduledDate: DateTime.now(),
       googleMapsUrl: "maps.gle.com",
       vehicleClassNumber: 4,
       vehicleName: "Maruti Suzuki Swift",
@@ -85,6 +87,7 @@ class NewOrders extends StatelessWidget {
       vehicleColor: "green",
       registrationNumber: "MH 02 AX 1198",
       totalCost: 4500,
+      paymentIsOnline: false,
       particularList: [
         Particulars(
           particularName: "WindShield",
@@ -124,6 +127,7 @@ class NewOrders extends StatelessWidget {
       vehicleColor: "white",
       registrationNumber: "MH 02 AX 1198",
       totalCost: 4500,
+      paymentIsOnline: true,
       particularList: [
         Particulars(
           particularName: "WindShield",
@@ -163,6 +167,7 @@ class NewOrders extends StatelessWidget {
       vehicleColor: "grey",
       registrationNumber: "MH 02 AX 1198",
       totalCost: 4500,
+      paymentIsOnline: true,
       particularList: [
         Particulars(
           particularName: "WindShield",
@@ -333,7 +338,7 @@ class NewOrders extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: 
                         orderRequestList[index].isUrgent?
-                         primaryColor.withOpacity(0.1) : Colors.green.withOpacity(0.3),
+                         primaryColor.withOpacity(0.1) : Colors.green.withOpacity(0.1),
                         border: Border.all(color: 
                         orderRequestList[index].isUrgent?
                          primaryColor : Colors.green),

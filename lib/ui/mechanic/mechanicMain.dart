@@ -5,6 +5,8 @@ import 'package:getmech/ui/mechanic/internalPages/mechProfile/mechProfile.dart';
 import 'package:getmech/ui/mechanic/internalPages/newOrder/newOrders.dart';
 import 'package:getmech/utils/constants.dart';
 
+import 'internalPages/mechMoney/mechMoney.dart';
+
 class MechanicMainPage extends StatefulWidget {
   @override
   _MechanicMainPageState createState() => _MechanicMainPageState();
@@ -20,14 +22,11 @@ class _MechanicMainPageState extends State<MechanicMainPage> {
     final List<Widget> _navChildren = [
       NewOrders(),
       MechProfile(),
+      MechMoney(),
       MechanicHistory(),
-      // MechSettings()
     ];
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Mechanic Page")
-      // ),
       body: IndexedStack(
         index: _page,
         children: _navChildren,
@@ -35,15 +34,10 @@ class _MechanicMainPageState extends State<MechanicMainPage> {
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         items: [
-          Icon(
-            Icons.home_outlined,
-            color: kBackgroundColor,
-          ),
+          Icon(Icons.home_outlined,color: kBackgroundColor,),
           Icon(Icons.person_outline, color: kBackgroundColor),
-          Icon(
-            Icons.settings_outlined,
-            color: kBackgroundColor,
-          ),
+          Icon(Icons.money,color: kBackgroundColor,),
+          Icon(Icons.history,color: kBackgroundColor,),
         ],
         index: 0,
         height: 60.0,
