@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/mechanicMain.dart';
-import 'package:getmech/ui/mechanic/registerProduct.dart';
+import 'package:getmech/ui/mechanic/register/registerProduct.dart';
 import 'package:getmech/utils/constants.dart';
 
-import 'internalPages/mechProfile/mechProfile.dart';
+import '../internalPages/mechProfile/mechProfile.dart';
 
 class RegisterService extends StatefulWidget {
   @override

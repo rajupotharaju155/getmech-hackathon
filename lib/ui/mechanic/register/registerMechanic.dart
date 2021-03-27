@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getmech/ui/mechanic/registerService.dart';
+import 'package:getmech/ui/mechanic/register/registerService.dart';
 import 'package:getmech/utils/constants.dart';
 
 class RegisterMechanic extends StatefulWidget {
@@ -19,11 +19,12 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
     return Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
-          title: Text('Mechanic Registeration'),
+          title: Text('Garage Registeration'),
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
-            child: ListView(children: <Widget>[
+            child: ListView(
+              children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
