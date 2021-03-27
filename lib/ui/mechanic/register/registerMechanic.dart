@@ -23,8 +23,7 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
+            child: ListView(children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(

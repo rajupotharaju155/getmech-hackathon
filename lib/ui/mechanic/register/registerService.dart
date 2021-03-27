@@ -3,8 +3,6 @@ import 'package:getmech/ui/mechanic/mechanicMain.dart';
 import 'package:getmech/ui/mechanic/register/registerProduct.dart';
 import 'package:getmech/utils/constants.dart';
 
-import '../internalPages/mechProfile/mechProfile.dart';
-
 class RegisterService extends StatefulWidget {
   @override
   _RegisterServiceState createState() => _RegisterServiceState();

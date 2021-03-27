@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/mechanicMain.dart';
 import 'package:getmech/utils/constants.dart';
-import '../internalPages/mechProfile/mechProfile.dart';
 
 class RegisterProduct extends StatefulWidget {
   @override
