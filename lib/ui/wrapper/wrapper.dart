@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/driver/loginRegWrapper/loginRegWrapperDriver.dart';
 import 'package:getmech/ui/mechanic/loginRegWrapper/loginRegWrapperMech.dart';
@@ -10,8 +11,14 @@ class WrapperPage extends StatefulWidget {
 }
 
 class _WrapperPageState extends State<WrapperPage> {
-  void _gotoMechanicPage() {
+  void _gotoMechanicPage() async {
     // CommonActions.gotoPage(MechanicMainPage(), context);
+    try {
+      await FirebaseFirestore.instance.collection('users')
+        .add({'hello': 124});
+    } catch (e) {
+      print("Exception: "+ e.toString());
+    }
     CommonActions.gotoPage(LoginRegWrapperMech(), context);
   }
 
