@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/productsModel.dart';
 import 'package:getmech/models/mechanic/serviceModel.dart';

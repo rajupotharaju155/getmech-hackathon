@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/models/mechanic/orderModel.dart';
 import 'package:getmech/models/mechanic/orderRequestmodel.dart';
+import 'package:getmech/ui/mechanic/internalPages/newOrder/detailedOrder.dart';
+import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -16,6 +19,59 @@ class NewOrders extends StatelessWidget {
       vehicleName: "Toyota Innova Crysta",
       vehicleImageUrl: "random image url",
       requestStatus: "pending",
+      vehicleColor: "red",
+      registrationNumber: "MH 02 AX 1198",
+      totalCost: 4500,
+      particularList: [
+        Particulars(
+          particularName: "WindShield",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "MRF Tyre",
+          pirce: 2000,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+      ]
     ),
     OrderRequestModel(
       orderName: "Wind Shield Damage",
@@ -26,6 +82,74 @@ class NewOrders extends StatelessWidget {
       vehicleName: "Maruti Suzuki Swift",
       vehicleImageUrl: "random image url",
       requestStatus: "accepted",
+      vehicleColor: "green",
+      registrationNumber: "MH 02 AX 1198",
+      totalCost: 4500,
+      particularList: [
+        Particulars(
+          particularName: "WindShield",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "MRF Tyre",
+          pirce: 2000,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+      ]
+    ),
+    OrderRequestModel(
+      orderName: "Engine Failure",
+      requestDate: DateTime.now(),
+      isUrgent: false,
+      googleMapsUrl: "maps.gle.com",
+      vehicleClassNumber: 2,
+      vehicleName: "Bajaj Pulsar 220",
+      vehicleImageUrl: "random image url",
+      requestStatus: "pending",
+      vehicleColor: "white",
+      registrationNumber: "MH 02 AX 1198",
+      totalCost: 4500,
+      particularList: [
+        Particulars(
+          particularName: "WindShield",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "MRF Tyre",
+          pirce: 2000,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+      ]
     ),
     OrderRequestModel(
       orderName: "Tyre Puncture",
@@ -36,20 +160,40 @@ class NewOrders extends StatelessWidget {
       vehicleName: "Toyota Innova Crysta",
       vehicleImageUrl: "random image url",
       requestStatus: "pending",
-    ),
-    OrderRequestModel(
-      orderName: "Tyre Puncture",
-      requestDate: DateTime.now(),
-      isUrgent: true,
-      googleMapsUrl: "maps.gle.com",
-      vehicleClassNumber: 4,
-      vehicleName: "Toyota Innova Crysta",
-      vehicleImageUrl: "random image url",
-      requestStatus: "pending",
+      vehicleColor: "grey",
+      registrationNumber: "MH 02 AX 1198",
+      totalCost: 4500,
+      particularList: [
+        Particulars(
+          particularName: "WindShield",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "MRF Tyre",
+          pirce: 2000,
+          quantity: 2,
+          isProduct: true
+        ),
+        Particulars(
+          particularName: "General Servicing",
+          pirce: 1240,
+          quantity: 1,
+          isProduct: false
+        ),
+        Particulars(
+          particularName: "OIl Change",
+          pirce: 320,
+          quantity: 2,
+          isProduct: true
+        ),
+      ]
     ),
   ];
-  void _detailedOrder(){
-    print("More details");
+  void _detailedOrder(BuildContext context, OrderRequestModel orderreqModel){
+    // print("More details"+ orderName);
+    CommonActions.gotoPage(DetailedOrder(orderRequestModel: orderreqModel,), context);
   }
   @override
   Widget build(BuildContext context) {
@@ -181,25 +325,36 @@ class NewOrders extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // orderRequestList[index].isUrgent?
+                  
                   Expanded(
                     child: Container(
                       height: 40,
                       margin: EdgeInsets.symmetric(vertical:5),
                       decoration: BoxDecoration(
-                        color: primaryColor.withOpacity(0.1),
-                        border: Border.all(color: primaryColor),
+                        color: 
+                        orderRequestList[index].isUrgent?
+                         primaryColor.withOpacity(0.1) : Colors.green.withOpacity(0.3),
+                        border: Border.all(color: 
+                        orderRequestList[index].isUrgent?
+                         primaryColor : Colors.green),
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.warning_amber_sharp, color: primaryColor, size: 22,),
-                          Text("Urgent!".toUpperCase(),
+                          orderRequestList[index].isUrgent?
+                          Icon(Icons.warning_amber_sharp, color: primaryColor, size: 22,)
+                          : Icon(Icons.watch_later_outlined, color: secondaryColor, size: 22)
+                          ,
+                          Text(
+                            orderRequestList[index].isUrgent?
+                            "Urgent!".toUpperCase() : "Scheduled".toUpperCase(),
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize: 18,
-                            color: primaryColor
+                            fontSize: 17,
+                            color: 
+                            orderRequestList[index].isUrgent?
+                             primaryColor: Colors.green[900]
                           ),
                           ),
                         ],
@@ -209,7 +364,7 @@ class NewOrders extends StatelessWidget {
                   SizedBox(width: 5),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed:()=> _detailedOrder(), 
+                      onPressed:()=> _detailedOrder(context, orderRequestList[index]), 
                       style: ElevatedButton.styleFrom(
                           primary: primaryColor, // background
                           onPrimary: Colors.white, // foreground

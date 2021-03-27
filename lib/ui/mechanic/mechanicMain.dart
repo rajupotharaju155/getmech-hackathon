@@ -2,7 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/ui/mechanic/internalPages/orderHIstory/history.dart';
 import 'package:getmech/ui/mechanic/internalPages/mechProfile/mechProfile.dart';
-import 'package:getmech/ui/mechanic/internalPages/newOrders.dart';
+import 'package:getmech/ui/mechanic/internalPages/newOrder/newOrders.dart';
 import 'package:getmech/utils/constants.dart';
 
 class MechanicMainPage extends StatefulWidget {

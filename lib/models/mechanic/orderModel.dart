@@ -30,9 +30,11 @@ class Particulars{
   final String particularName;
   final int pirce;
   final int quantity;
+  final bool isProduct;
 
   Particulars({
     this.particularName, 
     this.pirce, 
-    this.quantity});
+    this.quantity,
+    this.isProduct});
 }

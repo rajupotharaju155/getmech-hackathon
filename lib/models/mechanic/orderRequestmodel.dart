@@ -15,6 +15,9 @@ class OrderRequestModel{
   final List<Particulars> particularList;
   final bool requestAccepted;
   final String requestStatus;
+  final String vehicleColor;
+  final String registrationNumber;
+  final double totalCost;
 
   OrderRequestModel({
     this.orderRequestId, 
@@ -30,6 +33,9 @@ class OrderRequestModel{
     this.vehicleImageUrl,
     this.particularList,
     this.requestAccepted,
-    this.requestStatus
+    this.requestStatus,
+    this.vehicleColor,
+    this.registrationNumber,
+    this.totalCost
     });
 }
