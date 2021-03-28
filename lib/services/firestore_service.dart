@@ -4,6 +4,10 @@ class FirestoreService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
+    final CollectionReference garageCollection =
+      FirebaseFirestore.instance.collection('garage');
+
+
   Future<String> getUserNamefromUid(String uid) async {
     try {
       DocumentSnapshot userDoc = await userCollection.doc(uid).get();
@@ -73,6 +77,41 @@ class FirestoreService {
       // await updateFcmToken(user.uid);
     });
   }
+
+    Future<void> createNewGarage(
+      User user,
+      String password,
+      String mobileNumber,
+      String registeredBy,
+      String photoUrl,
+      String garageName,
+      String email,
+      bool haveGst,
+      String gstNumber,
+     Map<String, bool>  typeOfVehicles,
+      String garageAddress,
+      ) {
+
+  return garageCollection.doc(user.uid).set({
+      'password': password,
+      "timeCreated": Timestamp.now(),
+      "registeredBy": registeredBy,
+      "uid": user.uid,
+      "mobileNumber": mobileNumber ?? '',
+      "email": user.email ?? email ?? "NA",
+      'profilePicUrl': photoUrl,
+      'garageName': garageName,
+      'haveGst': haveGst,
+      'gstNumber': gstNumber ?? '',
+      'typeOfVehicles': typeOfVehicles,
+      'garageAddress': garageAddress,
+      'status': 'active'
+    }).then((value) async {
+      print("new user registered");
+      // await updateFcmToken(user.uid);
+    });
+  }
+
 
   Future<void> linkMobileNumber(String uid, String mobileNumber) async {
     await userCollection

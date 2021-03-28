@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/orderModel.dart';
 import 'package:getmech/models/mechanic/orderRequestmodel.dart';
+import 'package:getmech/services/authService.dart';
 import 'package:getmech/ui/mechanic/internalPages/newOrder/detailedOrder.dart';
 import 'package:getmech/utils/commonActions.dart';
 import 'package:getmech/utils/constants.dart';
@@ -200,11 +201,25 @@ class NewOrders extends StatelessWidget {
     // print("More details"+ orderName);
     CommonActions.gotoPage(DetailedOrder(orderRequestModel: orderreqModel,), context);
   }
+
+    void _logout()async{
+   bool result = await AuthService().logOut();
+   if(result){
+    //  Navigator.of(context).pop();
+    print("Suvvesfully loged out");
+   }else{
+     print("Problem in logginf out");
+   }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("New Orders"),
+        actions: [
+          ElevatedButton(onPressed: _logout, child: Text("Logout"))
+        ]
+        
       ),
       body:  ListView.builder(
           itemCount: orderRequestList.length,

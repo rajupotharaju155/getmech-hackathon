@@ -43,7 +43,8 @@ class _BaseWrapperState extends State<BaseWrapper> {
           if (snapshot.connectionState == ConnectionState.waiting)
             return CircularProgressIndicator();
           else if (snapshot.hasData){
-            return DriverMain();
+            User user = snapshot.data;
+            return CheckIfUserIsDriverOrMechanic(uid: user.uid);
           }
           else return WrapperPage();
         });

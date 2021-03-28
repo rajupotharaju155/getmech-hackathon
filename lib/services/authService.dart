@@ -49,6 +49,41 @@ class AuthService {
     }
   }
 
+    // ! register with email and password
+  Future registerGarage(
+    String email, String password,
+    String mobileNumber, String garageName,
+    bool haveGst, String gstNumber,
+     Map<String, bool> typeOfVehicles,
+     String address
+    ) async {
+    try {
+      UserCredential result = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
+      String photoUrl;
+      if (result != null) {
+        String registeredBy = "Registered with Email and Password";
+        await _firestoreService.createNewGarage(
+          user, 
+          password,
+          mobileNumber, 
+          registeredBy, 
+          photoUrl, 
+          garageName, 
+          email,
+          haveGst,
+          gstNumber,
+          typeOfVehicles,
+          address,
+          );
+      }
+      return result.user != null;
+    } catch (e) {
+      return e.message;
+    }
+  }
+
   //!check phone exists
   Future checkMobileNumberExist(String number)async{
      final snapShot = await FirebaseFirestore.instance
