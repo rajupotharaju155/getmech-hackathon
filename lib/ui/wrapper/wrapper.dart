@@ -188,6 +188,6 @@ class _CheckIfUserIsDriverOrMechanicState extends State<CheckIfUserIsDriverOrMec
     return loading? Center(
       child: CircularProgressIndicator(),
     ) :
-    isDriver ? DriverMain() :  MechanicMainPage();
+    isDriver ? DriverMain(isDriver: isDriver) :  MechanicMainPage(isDriver: isDriver);
   }
 }

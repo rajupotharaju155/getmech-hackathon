@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewOrders extends StatefulWidget {
+      final bool isDriver;
+  NewOrders({this.isDriver});
   @override
   _NewOrdersState createState() => _NewOrdersState();
 }
@@ -208,7 +210,10 @@ class _NewOrdersState extends State<NewOrders> {
 
   void _detailedOrder(BuildContext context, OrderRequestModel orderreqModel){
     // print("More details"+ orderName);
-    CommonActions.gotoPage(DetailedOrder(orderRequestModel: orderreqModel,), context);
+    CommonActions.gotoPage(DetailedOrder(
+      orderRequestModel: orderreqModel,
+      isDriver: widget.isDriver,
+      ), context);
   }
 
     void _logout()async{

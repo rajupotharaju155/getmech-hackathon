@@ -7,22 +7,25 @@ import 'package:getmech/ui/driver/internalPages/settings.dart';
 import 'package:getmech/utils/constants.dart';
 
 class DriverMain extends StatefulWidget {
+  final bool isDriver;
+  DriverMain({this.isDriver});
   @override
   _DriverMainState createState() => _DriverMainState();
 }
 
 class _DriverMainState extends State<DriverMain> {
   int _page = 0;
-  final List<Widget> _navChildren = [
-    DriverHomePage(),
-    DriverHistory(),
-    DriverProfile(),
-    DriverSettings(),
-  ];
+
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+      final List<Widget> _navChildren = [
+    DriverHomePage(isDriver: widget.isDriver),
+    DriverHistory(isDriver: widget.isDriver),
+    DriverProfile(),
+    DriverSettings(),
+  ];
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: IndexedStack(

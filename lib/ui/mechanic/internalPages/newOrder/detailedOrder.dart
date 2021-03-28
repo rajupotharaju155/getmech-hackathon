@@ -10,8 +10,10 @@ import 'package:getmech/utils/constants.dart';
 
 class DetailedOrder extends StatefulWidget {
   final OrderRequestModel orderRequestModel;
-
-   DetailedOrder({this.orderRequestModel});
+  final bool isDriver;
+   DetailedOrder({
+     this.orderRequestModel, 
+    @required this.isDriver});
 
   @override
   _DetailedOrderState createState() => _DetailedOrderState();
@@ -57,6 +59,7 @@ class _DetailedOrderState extends State<DetailedOrder> {
     super.initState();
     pd = ProgressDialog(context, isDismissible: false);
     print("order id " +widget.orderRequestModel.orderRequestId);
+    print('Is driver is: '+ widget.isDriver.toString());
   }
 
   @override
@@ -349,6 +352,7 @@ class _DetailedOrderState extends State<DetailedOrder> {
               margin: EdgeInsets.symmetric(horizontal: 5),
               alignment:  Alignment.topCenter,
               child: 
+              !widget.isDriver ?
               widget.orderRequestModel.requestStatus == 'pending'?
               SliderButton(
                 buttonSize: 40,
@@ -399,6 +403,93 @@ class _DetailedOrderState extends State<DetailedOrder> {
                   ),
                 ),
               ),
+            ) :
+
+            Container(
+              child: widget.orderRequestModel.requestStatus == 'pending'?
+              Container(
+                color: primaryColor,
+                child: Center(
+                  child: Text("Waiting for garage to accept yout order",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17
+                  ),
+                  ),
+                ),
+              ):
+              widget.orderRequestModel.requestStatus == 'accepted'?
+              Container(
+                color: Colors.green,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("5423",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20
+                      ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: 3,
+                        color: Colors.white,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Request Accepted!",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15
+                          ),
+                          ),
+                          Text("share this when you meet the mechanic",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12
+                          ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ) : 
+              widget.orderRequestModel.requestStatus == 'completed'?
+              Container(
+                height: 50,
+                color: Colors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("This order was completed",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17
+                    ),
+                    ),
+                    Icon(Icons.check_box, color: Colors.white, size: 30,)
+                  ],
+                ),
+              ): 
+              Container(
+                height: 50,
+                color: Colors.red,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("This order was Cancelled",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17
+                    ),
+                    ),
+                    Icon(Icons.cancel_outlined, color: Colors.white, size: 30,)
+                  ],
+                ),
+              )
             )
             ),
             Container(

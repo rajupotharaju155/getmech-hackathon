@@ -8,6 +8,9 @@ import 'package:getmech/utils/constants.dart';
 import 'internalPages/mechMoney/mechMoney.dart';
 
 class MechanicMainPage extends StatefulWidget {
+    final bool isDriver;
+  MechanicMainPage({this.isDriver});
+  
   @override
   _MechanicMainPageState createState() => _MechanicMainPageState();
 }
@@ -20,10 +23,10 @@ class _MechanicMainPageState extends State<MechanicMainPage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _navChildren = [
-      NewOrders(),
+      NewOrders(isDriver: widget.isDriver),
       MechProfile(),
       MechMoney(),
-      MechanicHistory(),
+      MechanicHistory(isDriver: widget.isDriver),
     ];
 
     return Scaffold(

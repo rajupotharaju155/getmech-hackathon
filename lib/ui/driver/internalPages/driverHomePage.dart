@@ -6,6 +6,8 @@ import 'package:getmech/ui/driver/internalPages/garageDetails.dart';
 import 'package:getmech/utils/constants.dart';
 
 class DriverHomePage extends StatefulWidget {
+    final bool isDriver;
+  DriverHomePage({this.isDriver});
   @override
   _DriverHomePageState createState() => _DriverHomePageState();
 }

@@ -3,6 +3,8 @@ import 'package:getmech/models/mechanic/orderModel.dart';
 import 'package:getmech/utils/constants.dart';
 import 'package:intl/intl.dart';
 class MechanicHistory extends StatefulWidget {
+      final bool isDriver;
+  MechanicHistory({this.isDriver});
   @override
   _MechanicHistoryState createState() => _MechanicHistoryState();
 }
