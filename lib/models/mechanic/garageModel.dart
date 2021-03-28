@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class GarageModel{
   final String garageName;
   final String garageAddress;
@@ -24,7 +26,26 @@ class GarageModel{
    this.listOfMechanics, 
    this.suportedVehicles});
 
+      //! get competetions list
+  List<GarageModel> garagesFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      print(doc.reference.id);
+      // print(doc.data()['MoneyDistributionStatus']);
+      return GarageModel(
+          garageName: doc.data()['garageName'] ?? '',
+           garageAddress: doc.data()['garageAddress'] ?? '',
+          phoneNumber: doc.data()['phoneNumber'] ?? '',
+          email: doc.data()['email'] ?? '',
+          haveGst: doc.data()['haveGst'] ?? '',
+
+          );
+    }).toList();
+  }
+
+
+
 }
+
 
 class Mechanics{
   final String name;

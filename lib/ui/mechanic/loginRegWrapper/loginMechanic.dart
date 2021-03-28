@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/services/authService.dart';
 import 'package:getmech/utils/constants.dart';
+import 'package:getmech/utils/dialog.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class LoginMechanic extends StatefulWidget {
   final VoidCallback transition;
@@ -10,14 +13,37 @@ class LoginMechanic extends StatefulWidget {
 }
 
 class _LoginMechanicState extends State<LoginMechanic> {
+     ProgressDialog pd;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final formKey = new GlobalKey<FormState>();
 
-    void validateAndSubmit(){
-      print("All validate");
-      print(_emailController.text);
-      print(_passwordController.text);
+    void validateAndSubmit() async {
+      pd.style(message: "Logging in..");
+      await pd.show();
+      final result =
+          await AuthService().logInWithEmailAndPassword(
+            _emailController.text, 
+            _passwordController.text);
+      await pd.hide();
+      if (!mounted) return null;
+      if (result is bool) {
+        if (result) {
+          Navigator.of(context).pop();
+        } else {
+          DialogUtil()
+              .showErrorDialog(context, "Login Failure", 'General Login Failure');
+        }
+      } else {
+        DialogUtil().showErrorDialog(context, "Login Failure", result);
+      }
+    }
+
+
+  @override
+  void initState() {
+    super.initState();
+    pd = ProgressDialog(context, isDismissible: false);
   }
 
 

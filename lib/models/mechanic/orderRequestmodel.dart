@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getmech/models/mechanic/orderModel.dart';
 
 class OrderRequestModel{
@@ -38,4 +39,35 @@ class OrderRequestModel{
     this.totalCost,
     this.paymentIsOnline
     });
+
+
+      //! get competetions list
+  List<OrderRequestModel> ordersFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      print(doc.reference.id);
+      // print(doc.data()['MoneyDistributionStatus']);
+      return OrderRequestModel(
+          orderRequestId: doc.data()['orderRequestId'] ?? '',
+           customerId: doc.data()['customerId'] ?? '',
+          orderName: doc.data()['orderName'] ?? '',
+          // competitionDocID: doc.reference.id ?? '',
+          
+          mechanichId: doc.data()['mechanichId'] ?? '',
+          requestDate: doc.data()['requestDate'] ?? '',
+          scheduledDate: doc.data()['scheduledDate'] ?? '',
+          isUrgent: doc.data()['isUrgent'] ?? '',
+          googleMapsUrl: doc.data()['googleMapsUrl'] ?? '',
+          vehicleClassNumber: doc.data()['vehicleClassNumber'] ?? '',
+          vehicleName: doc.data()['vehicleName'] ?? '',
+          vehicleImageUrl: doc.data()['vehicleImageUrl'] ?? '',
+          particularList: doc.data()['particularList'] ?? [],
+          requestStatus: doc.data()['requestStatus'] ?? '',
+          vehicleColor: doc.data()['vehicleColor'] ?? '',
+          registrationNumber: doc.data()['registrationNumber'] ?? '',
+          totalCost: doc.data()['totalCost'] ?? '',
+          paymentIsOnline: doc.data()['paymentIsOnline'] ?? '',
+          
+          );
+    }).toList();
+  }
 }
