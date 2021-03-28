@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:getmech/ui/driver/driverMain.dart';
 import 'package:getmech/ui/wrapper/wrapper.dart';
 import 'package:getmech/utils/constants.dart';
 
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class BaseWrapper extends StatefulWidget {
   @override
   _BaseWrapperState createState() => _BaseWrapperState();
@@ -39,14 +37,14 @@ class _BaseWrapperState extends State<BaseWrapper> {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, snapshot)  {
+        builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return CircularProgressIndicator();
-          else if (snapshot.hasData){
+          else if (snapshot.hasData) {
             User user = snapshot.data;
             return CheckIfUserIsDriverOrMechanic(uid: user.uid);
-          }
-          else return WrapperPage();
+          } else
+            return WrapperPage();
         });
   }
 }
