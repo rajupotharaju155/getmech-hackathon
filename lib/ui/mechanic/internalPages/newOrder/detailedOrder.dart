@@ -1,22 +1,49 @@
+import 'package:getmech/services/orderService.dart';
+import 'package:getmech/utils/dialog.dart';
 import 'package:intl/intl.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:slider_button/slider_button.dart';
 import 'package:flutter/material.dart';
 import 'package:getmech/models/mechanic/orderModel.dart';
 import 'package:getmech/models/mechanic/orderRequestmodel.dart';
 import 'package:getmech/utils/constants.dart';
 
-class DetailedOrder extends StatelessWidget {
+class DetailedOrder extends StatefulWidget {
   final OrderRequestModel orderRequestModel;
 
    DetailedOrder({this.orderRequestModel});
+
+  @override
+  _DetailedOrderState createState() => _DetailedOrderState();
+}
+
+class _DetailedOrderState extends State<DetailedOrder> {
+    ProgressDialog pd;
   final DateFormat formatter = DateFormat('dd-MMM-yyyy hh:mm:a');
+
   void _call(String number){
     print(number);
   }
 
-  void acceptOrder(){
-    print("Accept");
+  void goBack(){
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
   }
+
+  void acceptOrder()async{
+    print("Accept");
+    pd.style(message: "Accepting order..");
+    await pd.show();
+    bool res = await OrderService().acceptOrder(widget.orderRequestModel.orderRequestId);
+    pd.hide();
+    if(res){
+      DialogUtil().showTaskDoneDialog(
+        context, "Order Accepted", 
+        "Pelase Enter start PIN from user to confirm order", 
+        true, goBack);
+    }
+  }
+
   void _cancelOrder(){
     print("Cancel");
   }
@@ -24,12 +51,20 @@ class DetailedOrder extends StatelessWidget {
   void _goToVerifyPin(){
     print("Veryfing PIN");
   }
+
+  @override
+  void initState() { 
+    super.initState();
+    pd = ProgressDialog(context, isDismissible: false);
+    print("order id " +widget.orderRequestModel.orderRequestId);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String formattedDate = orderRequestModel.scheduledDate != null?  formatter.format(orderRequestModel.scheduledDate): "";
+    final String formattedDate = widget.orderRequestModel.scheduledDate != null?  formatter.format(widget.orderRequestModel.scheduledDate): "";
     return Scaffold(
       appBar: AppBar(
-        title: Text(orderRequestModel.orderName),
+        title: Text(widget.orderRequestModel.orderName),
       ),
       body: ListView(
         children: [
@@ -93,14 +128,13 @@ class DetailedOrder extends StatelessWidget {
             elevation: 2,
             color: Colors.grey[50],
             child: Container(
-              
               decoration: BoxDecoration(
-                color: orderRequestModel.isUrgent? primaryLightColor.withOpacity(0.4) : Colors.green[200],
+                color: widget.orderRequestModel.isUrgent? primaryLightColor.withOpacity(0.4) : Colors.green[200],
                 border: Border.all(color: primaryColor),
                 borderRadius: BorderRadius.circular(10)
               ),
               padding: EdgeInsets.all(10),
-              child: orderRequestModel.isUrgent?
+              child: widget.orderRequestModel.isUrgent?
                 Text("This is an urgent order!",
                 style: TextStyle(
                   fontSize: 20
@@ -150,7 +184,7 @@ class DetailedOrder extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(orderRequestModel.vehicleName,
+                      Text(widget.orderRequestModel.vehicleName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -163,7 +197,7 @@ class DetailedOrder extends StatelessWidget {
                           color: secondaryColor,
                           borderRadius:BorderRadius.circular(10)
                         ),
-                        child: Text(orderRequestModel.vehicleClassNumber.toString() + " W",
+                        child: Text(widget.orderRequestModel.vehicleClassNumber.toString() + " W",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
@@ -173,13 +207,13 @@ class DetailedOrder extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(orderRequestModel.vehicleColor.toUpperCase(),
+                  Text(widget.orderRequestModel.vehicleColor.toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
                   ),
                   ),
-                  Text(orderRequestModel.registrationNumber,
+                  Text(widget.orderRequestModel.registrationNumber,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
@@ -220,7 +254,7 @@ class DetailedOrder extends StatelessWidget {
                     ),
                   ),
                   Divider(thickness: 2,),
-                  Text(orderRequestModel.orderName,
+                  Text(widget.orderRequestModel.orderName,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -228,9 +262,9 @@ class DetailedOrder extends StatelessWidget {
                   ),
                   Column(
                     children: List.generate(
-                    orderRequestModel.particularList.length,
+                    widget.orderRequestModel.particularList.length,
                     (index){
-                      Particulars partList = orderRequestModel.particularList[index];
+                      Particulars partList = widget.orderRequestModel.particularList[index];
                       return ListTile(
                         title: Text(partList.particularName),
                         trailing: Container(
@@ -273,7 +307,7 @@ class DetailedOrder extends StatelessWidget {
                   fontWeight: FontWeight.bold
                 ),
                 ),
-                trailing: Text("Rs. "+orderRequestModel.totalCost.toString(),
+                trailing: Text("Rs. "+widget.orderRequestModel.totalCost.toString(),
                 style: TextStyle(
                                 fontWeight: FontWeight.bold
                               ),
@@ -294,7 +328,7 @@ class DetailedOrder extends StatelessWidget {
                 ),
                 ),
                 trailing: Text(
-                  orderRequestModel.paymentIsOnline? "Online": "Cash",
+                  widget.orderRequestModel.paymentIsOnline? "Online": "Cash",
                 style: TextStyle(
                   fontWeight: FontWeight.bold
                 ),
@@ -315,7 +349,7 @@ class DetailedOrder extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 5),
               alignment:  Alignment.topCenter,
               child: 
-              orderRequestModel.requestStatus == 'pending'?
+              widget.orderRequestModel.requestStatus == 'pending'?
               SliderButton(
                 buttonSize: 40,
                 height: 50,

@@ -355,7 +355,9 @@ class _NewOrdersState extends State<NewOrders> {
                                   orderRequestList[index].requestStatus == 'pending'? 
                                      primaryColor : 
                                   orderRequestList[index].requestStatus == 'accepted'? 
-                                 Colors.green : Colors.red
+                                    Colors.green :
+                                  orderRequestList[index].requestStatus == 'completed'? 
+                                 Colors.blue[700] : Colors.red
                                 ),
                                 ),
                               )

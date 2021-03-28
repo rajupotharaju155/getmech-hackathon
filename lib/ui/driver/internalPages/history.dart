@@ -128,11 +128,17 @@ void initState() {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                child: Text(order.requestStatus == 'pending'? "Pending" : "Success",
+                                child: Text(
+                                  order.requestStatus.toUpperCase(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
-                                  color: Colors.green
+                                  color:  order.requestStatus == 'pending'? 
+                                     primaryColor : 
+                                  order.requestStatus == 'accepted'? 
+                                    Colors.green :
+                                  order.requestStatus == 'completed'? 
+                                 Colors.blue[700] : Colors.red
                                 ),
                                 ),
                               ),

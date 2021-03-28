@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getmech/models/mechanic/orderRequestmodel.dart';
 
@@ -47,6 +49,21 @@ class OrderService{
           .where("garageId", isEqualTo: garageId)
           .snapshots()
           .map(OrderRequestModel().ordersFromSnapshot);
+    }
+
+
+    Future<bool> acceptOrder(String orderId)async{
+      try {
+        await orderCollection.doc(orderId)
+        .update({
+          'requestStatus': 'accepted'
+        });
+        return true;
+      } catch (e) {
+        print("Could not accpet" +e.toString());
+        return false;
+      }
+      
     }
 
   

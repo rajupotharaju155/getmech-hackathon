@@ -62,7 +62,7 @@ class OrderRequestModel{
           partList.add(part);
       });
       return OrderRequestModel(
-          orderRequestId: doc.data()['orderRequestId'] ?? '',
+          orderRequestId: doc.reference.id,
            customerId: doc.data()['customerId'] ?? '',
           orderName: doc.data()['orderName'] ?? '',
           garageAddress: doc.data()['garageAddress'] ?? '',
