@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class GarageModel{
   final String garageName;
   final String garageAddress;
+  final String garageId;
   final String latitude;
   final String longitude;
 
@@ -11,12 +12,16 @@ class GarageModel{
 
   final bool haveGst;
   final String gstNumber;
-  final List<Mechanics> listOfMechanics;
+  // final List<Mechanics> listOfMechanics;
 
-  final List<SupportedVehicle> suportedVehicles;
+  // final List<SupportedVehicle> suportedVehicles;
+  Map<String, bool> typeOfVehicles;
+  Map<String, bool> listOfMechanics;
 
-  GarageModel({this.garageName, 
+  GarageModel({
+  this.garageName, 
   this.garageAddress, 
+  this.garageId,
   this.latitude, 
   this.longitude,
    this.phoneNumber, 
@@ -24,7 +29,8 @@ class GarageModel{
    this.haveGst, 
    this.gstNumber, 
    this.listOfMechanics, 
-   this.suportedVehicles});
+   this.typeOfVehicles
+   });
 
       //! get competetions list
   List<GarageModel> garagesFromSnapshot(QuerySnapshot snapshot) {
@@ -37,26 +43,25 @@ class GarageModel{
           phoneNumber: doc.data()['phoneNumber'] ?? '',
           email: doc.data()['email'] ?? '',
           haveGst: doc.data()['haveGst'] ?? '',
-
+          garageId: doc.reference.id ?? '',
+          // typeOfVehicles: doc.data()['typeOfVehicles'] ?? {},
           );
     }).toList();
   }
 
-
-
 }
 
 
-class Mechanics{
-  final String name;
-  final String speciality;
+// class Mechanics{
+//   final String name;
+//   final String speciality;
 
-  Mechanics({this.name, this.speciality});
-}
+//   Mechanics({this.name, this.speciality});
+// }
 
-class SupportedVehicle{
-  final int vehicleClassNumber;
-  final String vehicleClassName;
+// class SupportedVehicle{
+//   final int vehicleClassNumber;
+//   final String vehicleClassName;
 
-  SupportedVehicle({this.vehicleClassNumber, this.vehicleClassName});
-}
+//   SupportedVehicle({this.vehicleClassNumber, this.vehicleClassName});
+// }

@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:getmech/models/mechanic/garageModel.dart';
+import 'package:getmech/models/mechanic/orderModel.dart';
+import 'package:getmech/models/mechanic/orderRequestmodel.dart';
 import 'package:getmech/models/mechanic/productsModel.dart';
 import 'package:getmech/models/mechanic/serviceModel.dart';
+import 'package:getmech/services/authService.dart';
+import 'package:getmech/services/orderService.dart';
 import 'package:getmech/utils/constants.dart';
+import 'package:getmech/utils/dialog.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class GarageDetails extends StatefulWidget {
+  final GarageModel garage;
+  GarageDetails({this.garage});
+  
   @override
   _GarageDetailsState createState() => _GarageDetailsState();
 }
 
 class _GarageDetailsState extends State<GarageDetails>
     with SingleTickerProviderStateMixin {
+        ProgressDialog pd;
   TabController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = new TabController(length: 2, vsync: this);
+    pd = ProgressDialog(context);
+    print("Garage id is: "+ widget.garage.garageId);
+    print("Garage id is: "+ widget.garage.garageAddress);
+    print("Garage id is: "+ widget.garage.garageName);
   }
 
   List serviceCategoryList = [
@@ -68,12 +83,85 @@ class _GarageDetailsState extends State<GarageDetails>
     ServiceModel(serviceName: "Tail Light", servicePrice: 450, quantity: 1),
   ];
 
+  void createOrderRequest()async{
+    print("Creating order....");
+    pd.style(message: "Creating order..");
+    await pd.show();
+    String uid = await AuthService().currrentUser();
+    final List<Particulars> particularList = [
+      Particulars(
+        particularName: 'Basic Charges',
+        isProduct: false,
+        pirce: 200
+      ),
+      Particulars(
+        particularName: 'Side Mirror',
+        isProduct: true,
+        pirce: 340
+      ),
+    ];
+    String latitude = '19.78282';
+    String longitude = '17.2431';
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}';
+    OrderRequestModel orderRequestModel = OrderRequestModel(
+      orderRequestId: "random string",
+      customerId: uid,
+      garageId: widget.garage.garageId,
+      orderName: "Sudden Breakdown",
+      requestDate: DateTime.now(),
+      isUrgent: true,
+      vehicleClassNumber: 4,
+      vehicleName: "Toyota Innova",
+      vehicleColor: "Grey",
+      registrationNumber: "MH 47 AS1198",
+      particularList: particularList,
+      paymentIsOnline: true,
+      requestStatus: 'pending',
+      googleMapsUrl: googleUrl,
+      garageAddress: widget.garage.garageName,
+      garageName: widget.garage.garageName
+
+    );
+
+    bool res = await OrderService().createOrderRequest(orderRequestModel);
+    await pd.hide();
+    if (res){
+      DialogUtil().showTaskDoneDialog(context, 
+      "Order Made", 
+      "We have notified the garage about your request\nPlease wait for garage acknowledgment", 
+      true, goBack);
+    }
+    print(res);
+
+
+  }
+
+  void goBack(){
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Garage Details'),
+      ),
+
+      bottomNavigationBar: Container(
+        height: 50,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: secondaryColor,
+            onPrimary: Colors.white
+          ),
+          onPressed: createOrderRequest, 
+          child: Container(
+            child: Center(
+              child: Text("Book "),
+            )
+          )),
       ),
       body: Column(
         children: [
@@ -106,7 +194,7 @@ class _GarageDetailsState extends State<GarageDetails>
                           children: [
                             Expanded(
                               child: Text(
-                                'Honda Service Center',
+                                widget.garage.garageName,
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.bold),
                                 overflow: TextOverflow.ellipsis,
@@ -125,7 +213,7 @@ class _GarageDetailsState extends State<GarageDetails>
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Address to the shop is written here blah blah blah',
+                                   widget.garage.garageAddress,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal),

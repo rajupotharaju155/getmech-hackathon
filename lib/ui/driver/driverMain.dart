@@ -25,9 +25,6 @@ class _DriverMainState extends State<DriverMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      // appBar: AppBar(
-      //   title: Text("Mechanic Page")
-      // ),
       body: IndexedStack(
         index: _page,
         children: _navChildren,

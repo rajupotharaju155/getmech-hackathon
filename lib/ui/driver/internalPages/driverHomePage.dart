@@ -41,7 +41,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               );}else{
                 List<GarageModel> garageModelList = snapshot.data;
               return ListView.builder(
-                itemCount: 2,
+                itemCount: garageModelList.length,
                 itemBuilder: (context, index){
                   GarageModel garage = garageModelList[index];
                   return GestureDetector(
@@ -49,7 +49,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GarageDetails(),
+                      builder: (context) => GarageDetails(
+                        garage: garage,
+                      ),
                     ),
                   );
                 },

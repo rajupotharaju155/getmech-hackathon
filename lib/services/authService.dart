@@ -118,7 +118,7 @@ class AuthService {
 
   
   //! get current user
-  Future<String> currrentUser() async {
+  String currrentUser(){
     try {
       User user = auth.currentUser;
       if (user == null) {

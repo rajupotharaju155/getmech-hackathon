@@ -4,7 +4,7 @@ import 'package:getmech/models/mechanic/orderModel.dart';
 class OrderRequestModel{
   final String orderRequestId;
   final String customerId;
-  final String mechanichId;
+  final String garageId;
   final String orderName;
   final DateTime requestDate;
   final DateTime scheduledDate;
@@ -19,11 +19,13 @@ class OrderRequestModel{
   final String registrationNumber;
   final double totalCost;
   final bool paymentIsOnline;
+  final String garageAddress;
+  final String garageName;
 
   OrderRequestModel({
     this.orderRequestId, 
     this.customerId, 
-    this.mechanichId, 
+    this.garageId, 
     this.orderName, 
     this.requestDate, 
     this.scheduledDate,
@@ -37,7 +39,9 @@ class OrderRequestModel{
     this.vehicleColor,
     this.registrationNumber,
     this.totalCost,
-    this.paymentIsOnline
+    this.paymentIsOnline,
+    this.garageAddress,
+    this.garageName
     });
 
 
@@ -46,28 +50,69 @@ class OrderRequestModel{
     return snapshot.docs.map((doc) {
       print(doc.reference.id);
       // print(doc.data()['MoneyDistributionStatus']);
+      List<Particulars> partList = [];
+      doc.data()['particularList'].forEach((e){
+          Particulars part = Particulars(
+            particularName: e['particularName'],
+            isProduct: e['isProduct'],
+            pirce: e['pirce'],
+            quantity: e['quantity']
+
+          );
+          partList.add(part);
+      });
       return OrderRequestModel(
           orderRequestId: doc.data()['orderRequestId'] ?? '',
            customerId: doc.data()['customerId'] ?? '',
           orderName: doc.data()['orderName'] ?? '',
-          // competitionDocID: doc.reference.id ?? '',
-          
-          mechanichId: doc.data()['mechanichId'] ?? '',
-          requestDate: doc.data()['requestDate'] ?? '',
-          scheduledDate: doc.data()['scheduledDate'] ?? '',
+          garageAddress: doc.data()['garageAddress'] ?? '',
+          garageName: doc.data()['garageName'] ?? '',
+          garageId: doc.data()['garageId'] ?? '',
+          requestDate: doc.data()['requestDate'].toDate() ?? '',
+          scheduledDate: doc.data()['isUrgent'] == true? null : doc.data()['scheduledDate'].toDate(),
           isUrgent: doc.data()['isUrgent'] ?? '',
           googleMapsUrl: doc.data()['googleMapsUrl'] ?? '',
           vehicleClassNumber: doc.data()['vehicleClassNumber'] ?? '',
           vehicleName: doc.data()['vehicleName'] ?? '',
           vehicleImageUrl: doc.data()['vehicleImageUrl'] ?? '',
-          particularList: doc.data()['particularList'] ?? [],
+          particularList: partList,
+          // .forEach((e)=> Particulars(
+          //   particularName: e['particularName']
+          // )).toList(),
           requestStatus: doc.data()['requestStatus'] ?? '',
           vehicleColor: doc.data()['vehicleColor'] ?? '',
           registrationNumber: doc.data()['registrationNumber'] ?? '',
-          totalCost: doc.data()['totalCost'] ?? '',
-          paymentIsOnline: doc.data()['paymentIsOnline'] ?? '',
+          totalCost: doc.data()['totalCost'] ?? 0.0,
+          paymentIsOnline: doc.data()['paymentIsOnline'] ?? false,
           
           );
     }).toList();
   }
+
+      Map<String, dynamic> toMap(){
+        return {
+          'customerId': customerId,
+          'garageId': garageId,
+          'orderName': orderName,
+          'requestDate': requestDate,
+          'isUrgent': isUrgent,
+          'googleMapsUrl': googleMapsUrl,
+          'vehicleClassNumber': vehicleClassNumber,
+          'vehicleName': vehicleName,
+          'vehicleColor': vehicleColor,
+          'registrationNumber': registrationNumber,
+          'vehicleImageUrl': vehicleImageUrl,
+          'particularList': particularList.map((e) => {
+            'particularName': e.particularName,
+            'isProduct': e.isProduct,
+            'quantity': e.quantity,
+            'pirce': e.pirce
+          }).toList(),
+          'requestStatus': requestStatus,
+          'paymentIsOnline': paymentIsOnline,
+          'totalCost': totalCost,
+          'garageAddress': garageAddress,
+          'garageName': garageName
+        };
+      }
 }

@@ -18,4 +18,36 @@ class OrderService{
         .snapshots()
         .map(OrderRequestModel().ordersFromSnapshot);
   }
+
+  Future<bool> createOrderRequest(OrderRequestModel order)async{
+    try {
+      await orderCollection.add(order.toMap());
+      print("order requestmade");
+      return true;
+    } catch (e) {
+      print("Error in order req: "+ e.toString());
+      return false;
+    }
+    
+  }
+
+
+    Stream<List<OrderRequestModel>> allOrderListOfUser(
+    String customerId) {
+      return orderCollection
+          .where("customerId", isEqualTo: customerId)
+          .snapshots()
+          .map(OrderRequestModel().ordersFromSnapshot);
+    }
+
+
+    Stream<List<OrderRequestModel>> allOrderListOfGarage(
+    String garageId) {
+      return orderCollection
+          .where("garageId", isEqualTo: garageId)
+          .snapshots()
+          .map(OrderRequestModel().ordersFromSnapshot);
+    }
+
+  
 }
