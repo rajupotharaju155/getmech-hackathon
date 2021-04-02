@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:getmech/services/authService.dart';
-import 'package:getmech/ui/mechanic/register/registerService.dart';
 import 'package:getmech/utils/constants.dart';
 import 'package:getmech/utils/dialog.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class RegisterMechanic extends StatefulWidget {
-    final VoidCallback transition;
+  final VoidCallback transition;
   RegisterMechanic({this.transition});
-  
+
   @override
   _RegisterMechanicState createState() => _RegisterMechanicState();
 }
 
 class _RegisterMechanicState extends State<RegisterMechanic> {
-    ProgressDialog pd;
+  ProgressDialog pd;
   TextEditingController garagenameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController gstNumberController = TextEditingController();
-    bool haveGst = false;
+  bool haveGst = false;
 
   Map<String, bool> typeOfVehicles = {
     '2': true,
@@ -30,46 +29,40 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
     '6': false,
   };
 
-
-    void validateAndSubmit()async{
-      print("All validate");
-      print(emailController.text);
-      print(passwordController.text);
-      await pd.show();
-       final result = await AuthService()
-        .registerGarage(
-          emailController.text.trim(),
-          passwordController.text.trim(),
-          phoneNumberController.text.trim(),
-          garagenameController.text.trim(),
-          haveGst,
-          gstNumberController.text.trim(),
-          typeOfVehicles,
-          addressController.text.trim()
-          );
-      await pd.hide();
-      if (result is bool) {
-        if (result) {
-          print("reg succesfull");
-          Navigator.of(context).pop();
-        } else {
-          DialogUtil().showErrorDialog(
-              context, "Sign Up Failure", 'General Signup Failure');
-        }
+  void validateAndSubmit() async {
+    print("All validate");
+    print(emailController.text);
+    print(passwordController.text);
+    await pd.show();
+    final result = await AuthService().registerGarage(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+        phoneNumberController.text.trim(),
+        garagenameController.text.trim(),
+        haveGst,
+        gstNumberController.text.trim(),
+        typeOfVehicles,
+        addressController.text.trim());
+    await pd.hide();
+    if (result is bool) {
+      if (result) {
+        print("reg succesfull");
+        Navigator.of(context).pop();
       } else {
-        DialogUtil().showErrorDialog(context, "Sign Up Failure", result);
+        DialogUtil().showErrorDialog(
+            context, "Sign Up Failure", 'General Signup Failure');
       }
-      if (!mounted) return;
-
+    } else {
+      DialogUtil().showErrorDialog(context, "Sign Up Failure", result);
+    }
+    if (!mounted) return;
   }
-
 
   @override
   void initState() {
     super.initState();
     pd = ProgressDialog(context);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,16 +73,15 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                    child: Text(
-                  'Please Register Your Garage',
-                  style: TextStyle(
-                      color: textPrimaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                )),
+            child: ListView(children: <Widget>[
+              Container(
+                  child: Text(
+                'Please Register Your Garage',
+                style: TextStyle(
+                    color: textPrimaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+              )),
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
@@ -132,29 +124,30 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
               ),
               Container(
                 child: CheckboxListTile(
-                    title: Text("I have GST"),
-                    value: haveGst,
-                    onChanged: (newValue) {
-                      setState(() {
-                        haveGst = newValue;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
-                  ),
+                  title: Text("I have GST"),
+                  value: haveGst,
+                  onChanged: (newValue) {
+                    setState(() {
+                      haveGst = newValue;
+                    });
+                  },
+                  controlAffinity:
+                      ListTileControlAffinity.leading, //  <-- leading Checkbox
+                ),
               ),
 
-              haveGst?
-              Container(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              controller: gstNumberController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter your GST Number',
-              ),
-            ),
-          ):
-          Container(),
+              haveGst
+                  ? Container(
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        controller: gstNumberController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter your GST Number',
+                        ),
+                      ),
+                    )
+                  : Container(),
               // Container(
               //   padding: EdgeInsets.all(10),
               //   child: Text(
@@ -181,27 +174,29 @@ class _RegisterMechanicState extends State<RegisterMechanic> {
                 ),
               ),
               Divider(thickness: 1, color: secondaryColor.withOpacity(0.7)),
-                  Column(
-                    children: typeOfVehicles.keys.map((e){
-                      return CheckboxListTile(
-                        // activeColor: secondaryColor,
-                        // checkColor: Colors.white,
-                          title: Text(
-                            e == '2'? "Two Wheeler" :
-                            e == '3'? "Three Wheeler" :
-                            e == '4'? "Four Wheeler":
-                            "Six Wheeler" 
-                          ),
-                          value: typeOfVehicles[e],
-                          onChanged: (newValue) {
-                            setState(() {
-                              typeOfVehicles[e] = newValue;
-                            });
-                          },
-                          controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
-                        );
-                    }).toList(),
-                  ),
+              Column(
+                children: typeOfVehicles.keys.map((e) {
+                  return CheckboxListTile(
+                    // activeColor: secondaryColor,
+                    // checkColor: Colors.white,
+                    title: Text(e == '2'
+                        ? "Two Wheeler"
+                        : e == '3'
+                            ? "Three Wheeler"
+                            : e == '4'
+                                ? "Four Wheeler"
+                                : "Six Wheeler"),
+                    value: typeOfVehicles[e],
+                    onChanged: (newValue) {
+                      setState(() {
+                        typeOfVehicles[e] = newValue;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
+                  );
+                }).toList(),
+              ),
               // Container(
               //   child: CheckBox(),
               // ),
