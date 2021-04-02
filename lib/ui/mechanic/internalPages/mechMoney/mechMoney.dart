@@ -13,8 +13,8 @@ class MechMoney extends StatelessWidget {
         padding: EdgeInsets.all(6),
         child: Column(
           children: [
-            MoneyCard(title: "My Money", subtitle: "Tap to withdraw", balance: 500,),
-            MoneyCard(title: "Money Due",subtitle: "Tap to settle", balance: 300,),
+            MoneyCard(title: "Mech Money", subtitle: "Tap to withdraw", balance: 500,),
+            MoneyCard(title: "Due Wallet",subtitle: "Tap to settle", balance: 300,),
             Divider(thickness: 3,),
             InkWell(
               onTap: (){},

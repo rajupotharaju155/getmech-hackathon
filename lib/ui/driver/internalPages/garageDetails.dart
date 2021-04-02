@@ -110,6 +110,7 @@ class _GarageDetailsState extends State<GarageDetails>
       orderName: "Sudden Breakdown",
       requestDate: DateTime.now(),
       isUrgent: true,
+      scheduledDate: DateTime.now(),
       vehicleClassNumber: 4,
       vehicleName: "Toyota Innova",
       vehicleColor: "Grey",
@@ -123,7 +124,7 @@ class _GarageDetailsState extends State<GarageDetails>
 
     );
 
-    bool res = await OrderService().createOrderRequest(orderRequestModel);
+    bool res = await OrderService().createOrderRequest(orderRequestModel, );
     await pd.hide();
     if (res){
       DialogUtil().showTaskDoneDialog(context, 

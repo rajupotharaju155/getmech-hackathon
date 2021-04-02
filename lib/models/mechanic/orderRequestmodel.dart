@@ -69,7 +69,7 @@ class OrderRequestModel{
           garageName: doc.data()['garageName'] ?? '',
           garageId: doc.data()['garageId'] ?? '',
           requestDate: doc.data()['requestDate'].toDate() ?? '',
-          scheduledDate: doc.data()['isUrgent'] == true? null : doc.data()['scheduledDate'].toDate(),
+          scheduledDate: doc.data()['isUrgent'] == true? null : doc.data()['scheduledDate'] != null ? doc.data()['scheduledDate'].toDate() : DateTime.now(),
           isUrgent: doc.data()['isUrgent'] ?? '',
           googleMapsUrl: doc.data()['googleMapsUrl'] ?? '',
           vehicleClassNumber: doc.data()['vehicleClassNumber'] ?? '',
@@ -88,6 +88,48 @@ class OrderRequestModel{
           );
     }).toList();
   }
+
+
+        //! get competetions 
+  OrderRequestModel ordersFromDoc(DocumentSnapshot doc) {
+      List<Particulars> partList = [];
+      doc.data()['particularList'].forEach((e){
+          Particulars part = Particulars(
+            particularName: e['particularName'],
+            isProduct: e['isProduct'],
+            pirce: e['pirce'],
+            quantity: e['quantity']
+
+          );
+          partList.add(part);
+      });
+      return OrderRequestModel(
+          orderRequestId: doc.reference.id,
+           customerId: doc.data()['customerId'] ?? '',
+          orderName: doc.data()['orderName'] ?? '',
+          garageAddress: doc.data()['garageAddress'] ?? '',
+          garageName: doc.data()['garageName'] ?? '',
+          garageId: doc.data()['garageId'] ?? '',
+          requestDate: doc.data()['requestDate'].toDate() ?? '',
+          scheduledDate: doc.data()['isUrgent'] == true? null : doc.data()['scheduledDate'].toDate(),
+          isUrgent: doc.data()['isUrgent'] ?? '',
+          googleMapsUrl: doc.data()['googleMapsUrl'] ?? '',
+          vehicleClassNumber: doc.data()['vehicleClassNumber'] ?? '',
+          vehicleName: doc.data()['vehicleName'] ?? '',
+          vehicleImageUrl: doc.data()['vehicleImageUrl'] ?? '',
+          particularList: partList,
+          // .forEach((e)=> Particulars(
+          //   particularName: e['particularName']
+          // )).toList(),
+          requestStatus: doc.data()['requestStatus'] ?? '',
+          vehicleColor: doc.data()['vehicleColor'] ?? '',
+          registrationNumber: doc.data()['registrationNumber'] ?? '',
+          totalCost: doc.data()['totalCost'] ?? 0.0,
+          paymentIsOnline: doc.data()['paymentIsOnline'] ?? false,
+          
+          );
+  }
+
 
       Map<String, dynamic> toMap(){
         return {
@@ -112,7 +154,8 @@ class OrderRequestModel{
           'paymentIsOnline': paymentIsOnline,
           'totalCost': totalCost,
           'garageAddress': garageAddress,
-          'garageName': garageName
+          'garageName': garageName,
+          'pin': 4321
         };
       }
 }

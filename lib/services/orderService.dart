@@ -21,7 +21,7 @@ class OrderService{
         .map(OrderRequestModel().ordersFromSnapshot);
   }
 
-  Future<bool> createOrderRequest(OrderRequestModel order)async{
+  Future<bool> createOrderRequest(OrderRequestModel order,)async{
     try {
       await orderCollection.add(order.toMap());
       print("order requestmade");
@@ -65,6 +65,35 @@ class OrderService{
       }
       
     }
+
+        Future<bool> pinVerifiedStatus(String orderId)async{
+      try {
+        await orderCollection.doc(orderId)
+        .update({
+          'requestStatus': 'started'
+        });
+        return true;
+      } catch (e) {
+        print("Could not accpet" +e.toString());
+        return false;
+      }
+      
+    }
+
+    Stream<OrderRequestModel> getOrderDetail(String orderId){
+      return orderCollection.doc(orderId)
+        .snapshots()
+        .map(OrderRequestModel().ordersFromDoc);
+    }
+
+
+    Future<bool> veriyPin(String orderId, String pin)async{
+     DocumentSnapshot doc =  await orderCollection.doc(orderId)
+        .get();
+    
+        var pinD = doc.data()['pin'];
+        return pinD.toString() == pin.toString();
+        } 
 
   
 }
